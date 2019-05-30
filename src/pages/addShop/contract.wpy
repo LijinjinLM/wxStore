@@ -6,134 +6,24 @@
 </style>
 <template>
   <view class="body-view">
-    <canvas canvas-id='share' style="height: 2900px;" wx:if="{{isShow}}"></canvas><!--wx:if="{{false}}"-->
+    <canvas canvas-id='share' style="height: 2900px;" wx:if="{{isShow}}"></canvas>
     <view class="myDiv">
       <text>
         合同编号：XXX-YW-____{{time1}}{{sNumber}}______
 
-        甲方：深圳市熊小鲜科技有限公司（以下简称甲方）
+        甲方：
 
         乙方：_______{{shopname}}_________（以下简称乙方）
 
-        甲、乙双方本着自愿、平等、公平、诚实、信用的原则，经友好协商，根据中华人民共和国有关法律、法规的规定签定本协议，由双方共同遵守。
-
-        第一条：合作关系
-
-        1.经乙方申请，甲方审核无误后，批准乙方以合作形式入驻甲方公司《熊小鲜》平台，甲方与乙方属于商业合作关系乙方属于甲方区域销售网点服务商,负责对区域消费者提供商品零售与售后服务。
-
-        第二条：独立的当事者
-
-        1．乙方不具有代行甲方而发生任何行为的权力。乙方员工不是甲方的员工，乙方也不是甲方的代理人。甲方对其劳动关系及员工行为不承担任何责任。
-
-        2．乙方属于合作商，经营决策是乙方自行判断，自主运作的行为，由乙方独立承担责任，甲方不予严格干涉。
-
         第三条　授权
 
-        1．甲方书面授权乙方，在地址为______________{{address}}___________________以甲方合作商的形式进行经营。（两种合作模式，加盟商模式与合作商模式。）
+        1．甲方书面授权乙方，在地址为______________{{address}}___________________以甲方合作商的形式进行经营
 
         2．本合同授权使用期限，自___ {{date[0]}}_____年____{{date[1]}}____月___{{date[2]}}_____日起至____{{dateEnd[0]}}____年___{{dateEnd[1]}}_____月___{{dateEnd[1]}}_____日止。
 
-        3.在合作服务区域在没有加盟商出现的情况下，乙方享有甲方合作商一切待遇。
-
-        4.乙方可优先成为甲方区域的加盟商。
-
-        第四条　商标的使用与承诺
-
-        1．甲方承诺在本合同执行期间，提供的商标以及标志等，乙方有权向消费者推广。
-
-        2．乙方不得在本合同规定以外的场所使用甲方商号、商标、标志、记号、样式、标签和招牌等。同时严禁使用与甲方商标相同或相似的作为乙方公司名的全部或一部分，或作其它用途。
-
-        3．本合同终止或解除后，乙方不得以任何理由再使用甲方商标、标志、样式、招牌等。
-
-        第五条　使用范围和使用要求
-
-        1．乙方只能按甲方承诺的范围和方法使用甲方商标。
-
-        2．在合同期内，乙方不得有以下行为：
-
-        （1）降低公司形象，损害公司商标和经营技术资产；
-
-        （2）不经甲方书面同意，不得向第三者泄密、传递公司经营技术资产。
-
-        第六条　店面形象与商品质量要求
-
-        1．甲方要求乙方保持合作店面的卫生与货物整洁。
-
-        2．乙方所提供给消费者的商品必须安全健康。
-
-        3．甲方提供的促销活动与物品都应按甲方要求进行陈列与推广。
-
-        4．由甲方提供的货物有质量或滞销情况及时通知，保证商品的质量安全与及时流通处理。
-
-        第七条　供货方式及要求
-
-        1．甲方提供各种货物在平台后台展出，乙方有权选择采购与否。
-
-        2．乙方订货可以电话、短信、微信、传真、后台下单等方式通知甲方。
-
-        3．乙方在确认收货后付款，如有退货应提前通知甲方安排。
-
-        4．兑换奖项以及货物退换的事项均应提前通知甲方，甲方将有会专车处理。
-
-        第八条　甲方义务
-
-        1. 协助乙方开发潜在消费者。
-
-        2. 提供促销礼品与促销方式协助乙方做好商店销售工作。
-
-        3. 策划各种公益活动拉动消费，增加消费者粘性。
-
-        4．培训相关销售人员及销售技巧，店面管理、服务理念等。
-
-        5．根据乙方特定消费群体制定相关促销活动。
-
-        6. 负责解答线上消费者各种服务疑问，协助乙方货物上架指导工作。
-
-        7. 培训乙方员工使用甲方软件系统，有效提高工作效率，提高销售机会与利润率。
-
-        8. 免费提供有关的促销方案及活动资料。
-
-        第九条　乙方责任
-
-        1．必须保证提供消费者商品的安全性。
-
-        2.因经营环境变化及其他原因，乙方希望变更本合同第三条的第1条授权的合作经营地点及位置时，必须向甲方提出书面变更申请，经甲方书面同意后方可变更。
-
-        3．除第三条的第1条授权位置外，乙方另新增开合作商店，必须与甲方另签合同书后方可经营。
-
-        4．乙方未征得甲方书面同意认可，不得将本合同规定的任何权利转让给予第三者。
-
-        5．乙方在经营期间因自己的经营、管理等问题损害了他人利益时，由乙方自行承担赔偿损失的责任，甲方不承担任何责任。
-
-        6．因乙方行为造成甲方被索赔责任时，乙方负担因此而产生的全部费用。
-
-        7．乙方在经营期间，如因不可抗拒的困难可能发生营业中断或不能再继续营业时，必须以书面形式通知甲方。
-
-        8．合同无论在何种情况下终止，乙方必须立即自行拆除甲方公司提供的，商标、标志代表性的一切营业象征物体。如乙方不主动拆除，甲方可以自行拆除作业，乙方必须负担为之产生的一切费用。
-
-        9．乙方不得向第三者泄漏甲方按合同规定提供的经营技术资产、秘密及有损甲方利益的情报，并有责任保证其员工不向第三者泄漏及传递，此项在合同终止后仍然有效。
-
-        第十条线上结算方式
-
-        1.消费者线上付款，由甲方代收货款，每周结算一次并汇入乙方指定账户。
-
-        2.乙方必须提供准确的綑绑银行卡号以及相关信息。
-
-        3.由乙方提供信息错误而导致的资金损失乙方完全负责。
-
-        4.消费者网上付款退款事项均为线上处理，乙方确认同意后由甲方平台先行退款到消费者付款账户。退款金额由甲方直接从乙方平台扣除。如有异议甲方拥有最终解释权。
-
-        第十一条　合同续签
-
-        本合同距到期日__30__天时，由乙方书面提出申请，经双方协商续签或终止合同。
-
-        第十二条　协商及受理法院
-
-        　　本合同未尽事宜，由当事者双方本着发展事业的愿望，坦诚地协商解决。本合同发生纠纷交付法律审理时，甲方所在地法院为专属受理法院。
-
         第十三条　本合同是电子合同，自双方签字盖章之日起生效。
 
-        甲方（盖章）：深圳市熊小鲜科技有限公司
+        甲方（盖章）：
 
         代表人（签章）：
       </text>
@@ -142,14 +32,12 @@
         <image style="margin-left:10px;width:50px;height:60px;" mode="scaleToFill"
                src="{{signImg}}"></image>
       </view>
-      <!--transform:rotate(-90deg);-->
       <text>
         日期：{{time}}
-
-        注：为保证双方资金安全，请乙方提供真实有效的相关资料。
       </text>
     </view>
-    <!--</canvas>-->
+  </view>
+  <view style="position:absolute;bottom:0;width:100%;">
     <view>
       <van-switch checked="{{ checked }}" bind:change="onChange"/>
       是否阅读以上内容
@@ -161,11 +49,9 @@
     </view>-->
     <view>
       <button bindtap='saveImageToPhotosAlbum'
-              style="font-size:15px;color: white;background: #FF813D;margin-top: 10px;">确定
+              style="font-size:15px;color: white;background: #FF813D;margin-top: 10px;width:100%;">确定
       </button>
-      <!--  <button  bindtap="confirm" style="font-size:15px;color: white;background: #FF813D;margin-top: 10px;">确定</button>-->
     </view>
-
   </view>
 
 </template>
@@ -218,90 +104,6 @@
         var pages = getCurrentPages() //获取加载的页面
 
         var currentPage = pages[pages.length - 1] //获取当前页面的对象
-
-        var url = currentPage.route;
-        console.log('哈哈' + url)
-        /*wx.downloadFile({
-          url: 'pages/addShop/contract', // 仅为示例，并非真实的资源
-          success(res) {
-            // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
-            if (res.statusCode === 200) {
-             /!* wx.playVoice({
-                filePath: res.tempFilePath
-              })*!/
-              var filePath=res.tempFilePath;
-              console.log(filePath);
-              console.log('11');
-            }
-          }
-        })*/
-
-
-        // console.log(document.getElementById("myDiv"))
-        /* let _this=this;
-         wx.canvasToTempFilePath({
-           canvasId: 'share',
-           fileType: 'jpg',
-           success: function (res) {
-             console.log(res)
-             /!*wx.uploadFile({
-               url: _this.$parent.globalData.utURL + 'upload/needType',
-               filePath: res.tempFilePath,
-               name: 'file',
-               formData: {
-                 type: "pic"
-               },
-               header: {
-                 "Content-Type": "multipart/form-data"
-               },
-               success: (res1) => {
-                 console.log('dd')
-                 var data = JSON.parse(res1.data);*!/
-                 /!*wx.setStorage({
-                   key: "signImages",
-                   data: _this.$parent.globalData.imgURL + data.data[0]
-                 })
-                 wx.navigateTo({
-                   url: '/pages/addShop/contract'
-                 })*!/
-             //  }
-            // })
-              wx.saveImageToPhotosAlbum({
-                filePath: res.tempFilePath,
-                success(res) {
-                  console.log('你好'+res)
-                  wx.hideLoading();
-                  wx.showToast({
-                    title: '保存成功',
-                  });
-                  // //存入服务器
-                  // wx.uploadFile({
-                  //   url: 'a.php', //接口地址
-                  //   filePath: res.tempFilePath,
-                  //   name: 'file',
-                  //   formData: {                                 //HTTP 请求中其他额外的 form data
-                  //     'user': 'test'
-                  //   },
-                  //   success: function (res) {
-                  //     console.log(res);
-
-                  //   },
-                  //   fail: function (res) {
-                  //     console.log(res);
-                  //   },
-                  //   complete: function (res) {
-                  //   }
-                  // });
-                },
-                fail() {
-                  wx.hideLoading()
-                }
-              })
-           }
-         })*/
-        /* wx.navigateTo({
-           url: '/pages/addShop/canvas'
-         })*/
       },
       saveImageToPhotosAlbum: function () {
         if (this.checked == false) {
@@ -320,395 +122,10 @@
           })
           return;
         }
-        var that = this;
-        that.isShow = true;
-        // var unit = that.data.screenWidth / 375
-        //2. canvas绘制文字和图片
-        var bgImgPath = that.signImg;
-        const ctx = wx.createCanvasContext('share');
-
-
-        var fanstr1 = '合同编号：XXX-YW-____' + that.time1 + that.sNumber + '____';
-        var fanstr2 = '甲方：深圳市熊小鲜科技有限公司（以下简称甲方）';
-        var fanstr3 = '乙方：__' + that.shopname + '__（以下简称乙方）';
-        var fanstr4 = '甲、乙双方本着自愿、平等、公平、诚实、信用的原则，经友好协商，根据中华人民共和国有关法律、法规的规定签定本协议，由双方共同遵守。';
-        var fanstr5 = '第一条：合作关系';
-        var fanstr6 = '1.经乙方申请，甲方审核无误后，批准乙方以合作形式入驻甲方公司《熊小鲜》平台，甲方与乙方属于商业合作关系乙方属于甲方区域销售网点服务商,负责对区域消费者提供商品零售与售后服务。';
-        var fanstr7 = '第二条：独立的当事者';
-        var fanstr8 = '1．乙方不具有代行甲方而发生任何行为的权力。乙方员工不是甲方的员工，乙方也不是甲方的代理人。甲方对其劳动关系及员工行为不承担任何责任。';
-        var fanstr9 = '2．乙方属于合作商，经营决策是乙方自行判断，自主运作的行为，由乙方独立承担责任，甲方不予严格干涉。';
-        var fanstr10 = '第三条　授权';
-        var fanstr11 = '1．甲方书面授权乙方，在地址为_______' + that.address + '______以甲方合作商的形式进行经营。（两种合作模式，加盟商模式与合作商模式。）';
-        var fanstr12 = '2．本合同授权使用期限，自___ ' + that.date[0] + '_____年____' + that.date[1] + '____月___' + that.date[2] + '_____日起至____' + that.dateEnd[0] + '____年___' + that.dateEnd[1] + '_____月___' + that.dateEnd[2] + '_____日止。';
-        var fanstr13 = '3.在合作服务区域在没有加盟商出现的情况下，乙方享有甲方合作商一切待遇。';
-        var fanstr14 = '4.乙方可优先成为甲方区域的加盟商。';
-        var fanstr15 = '第四条　商标的使用与承诺';
-        var fanstr16 = '1．甲方承诺在本合同执行期间，提供的商标以及标志等，乙方有权向消费者推广。';
-        var fanstr17 = '2．乙方不得在本合同规定以外的场所使用甲方商号、商标、标志、记号、样式、标签和招牌等。同时严禁使用与甲方商标相同或相似的作为乙方公司名的全部或一部分，或作其它用途。';
-        var fanstr18 = '3．本合同终止或解除后，乙方不得以任何理由再使用甲方商标、标志、样式、招牌等。';
-        /* var fanstr19 ='1．甲方承诺在本合同执行期间，提供的商标以及标志等，乙方有权向消费者推广。';
-         var fanstr20 ='2．乙方不得在本合同规定以外的场所使用甲方商号、商标、标志、记号、样式、标签和招牌等。同时严禁使用与甲方商标相同或相似的作为乙方公司名的全部或一部分，或作其它用途。';*/
-        var fanstr21 = '第五条　使用范围和使用要求';
-        var fanstr22 = '1．乙方只能按甲方承诺的范围和方法使用甲方商标。';
-        var fanstr23 = '2．在合同期内，乙方不得有以下行为：';
-        var fanstr24 = '（1）降低公司形象，损害公司商标和经营技术资产；';
-        var fanstr25 = '（2）不经甲方书面同意，不得向第三者泄密、传递公司经营技术资产。';
-        var fanstr26 = '第六条　店面形象与商品质量要求';
-        var fanstr27 = '1．甲方要求乙方保持合作店面的卫生与货物整洁。';
-        var fanstr28 = '2．乙方所提供给消费者的商品必须安全健康';
-        var fanstr29 = '3．甲方提供的促销活动与物品都应按甲方要求进行陈列与推广。';
-        var fanstr30 = '4．由甲方提供的货物有质量或滞销情况及时通知，保证商品的质量安全与及时流通处理。';
-        var fanstr31 = '第七条　供货方式及要求';
-        var fanstr32 = '1．甲方提供各种货物在平台后台展出，乙方有权选择采购与否。';
-        var fanstr33 = '2．乙方订货可以电话、短信、微信、传真、后台下单等方式通知甲方。';
-        var fanstr34 = '3．乙方在确认收货后付款，如有退货应提前通知甲方安排。';
-        var fanstr35 = '4．兑换奖项以及货物退换的事项均应提前通知甲方，甲方将有会专车处理。';
-        var fanstr36 = '第八条　甲方义务';
-        var fanstr37 = '1. 协助乙方开发潜在消费者。';
-        var fanstr38 = '2. 提供促销礼品与促销方式协助乙方做好商店销售工作。';
-        var fanstr38 = '3. 策划各种公益活动拉动消费，增加消费者粘性。';
-        var fanstr39 = '4．培训相关销售人员及销售技巧，店面管理、服务理念等。';
-        var fanstr40 = '5．根据乙方特定消费群体制定相关促销活动';
-        var fanstr41 = '6. 负责解答线上消费者各种服务疑问，协助乙方货物上架指导工作。';
-        var fanstr42 = '7. 培训乙方员工使用甲方软件系统，有效提高工作效率，提高销售机会与利润率。';
-        var fanstr43 = '8. 免费提供有关的促销方案及活动资料。';
-        var fanstr44 = '第九条　乙方责任';
-        var fanstr45 = '1．必须保证提供消费者商品的安全性。';
-        var fanstr46 = '2.因经营环境变化及其他原因，乙方希望变更本合同第三条的第1条授权的合作经营地点及位置时，必须向甲方提出书面变更申请，经甲方书面同意后方可变更。';
-        var fanstr47 = '3．除第三条的第1条授权位置外，乙方另新增开合作商店，必须与甲方另签合同书后方可经营。';
-        var fanstr48 = '4．乙方未征得甲方书面同意认可，不得将本合同规定的任何权利转让给予第三者。';
-        var fanstr49 = '5．乙方在经营期间因自己的经营、管理等问题损害了他人利益时，由乙方自行承担赔偿损失的责任，甲方不承担任何责任。';
-        var fanstr50 = '6．因乙方行为造成甲方被索赔责任时，乙方负担因此而产生的全部费用。';
-        var fanstr51 = '7．乙方在经营期间，如因不可抗拒的困难可能发生营业中断或不能再继续营业时，必须以书面形式通知甲方。';
-        var fanstr52 = '8．合同无论在何种情况下终止，乙方必须立即自行拆除甲方公司提供的，商标、标志代表性的一切营业象征物体。如乙方不主动拆除，甲方可以自行拆除作业，乙方必须负担为之产生的一切费用。';
-        var fanstr53 = '9. 乙方不得向第三者泄漏甲方按合同规定提供的经营技术资产、秘密及有损甲方利益的情报，并有责任保证其员工不向第三者泄漏及传递，此项在合同终止后仍然有效。';
-        var fanstr54 = '第十条  线上结算方式';
-        var fanstr55 = '1.消费者线上付款，由甲方代收货款，每周结算一次并汇入乙方指定账户。';
-        var fanstr56 = '2.乙方必须提供准确的綑绑银行卡号以及相关信息。';
-        var fanstr57 = '3.由乙方提供信息错误而导致的资金损失乙方完全负责。';
-        var fanstr58 = '4.消费者网上付款退款事项均为线上处理，乙方确认同意后由甲方平台先行退款到消费者付款账户。退款金额由甲方直接从乙方平台扣除。如有异议甲方拥有最终解释权。';
-        var fanstr59 = '第十一条　合同续签';
-        var fanstr60 = '本合同距到期日__30__天时，由乙方书面提出申请，经双方协商续签或终止合同。';
-        var fanstr61 = '第十二条　协商及受理法院';
-        var fanstr62 = '本合同未尽事宜，由当事者双方本着发展事业的愿望，坦诚地协商解决。本合同发生纠纷交付法律审理时，甲方所在地法院为专属受理法院。';
-        var fanstr63 = '第十三条　本合同是电子合同，自双方签字盖章之日起生效。';
-        var fanstr64 = '甲方（盖章）：深圳市熊小鲜科技有限公司';
-        var fanstr65 = '代表人（签章）：';
-        var fanstr66 = '乙方（签名）:';
-        var fanstr67 = '日期：' + that.time + '';
-        var fanstr68 = '注：为保证双方资金安全，请乙方提供真实有效的相关资料。';
-
-
-        var fanstr = '合同编号：XXX-YW-____' + that.time1 + that.sNumber + '____\n' +
-          '甲方：深圳市熊小鲜科技有限公司（以下简称甲方）\n' +
-          '\n' +
-          '乙方：_____' + that.shopname + '______（以下简称乙方）\n' +
-          '\n' +
-          '甲、乙双方本着自愿、平等、公平、诚实、信用的原则，经友好协商，根据中华人民共和国有关法律、法规的规定签定本协议，由双方共同遵守。\n' +
-          '\n' +
-          '第一条：合作关系\n' +
-          '\n' +
-          '1.经乙方申请，甲方审核无误后，批准乙方以合作形式入驻甲方公司《熊小鲜》平台，甲方与乙方属于商业合作关系乙方属于甲方区域销售网点服务商,负责对区域消费者提供商品零售与售后服务。\n' +
-          '\n' +
-          '第二条：独立的当事者\n' +
-          '\n' +
-          '1．乙方不具有代行甲方而发生任何行为的权力。乙方员工不是甲方的员工，乙方也不是甲方的代理人。甲方对其劳动关系及员工行为不承担任何责任。\n' +
-          '\n' +
-          '2．乙方属于合作商，经营决策是乙方自行判断，自主运作的行为，由乙方独立承担责任，甲方不予严格干涉。\n' +
-          '\n' +
-          '第三条　授权\n' +
-          '\n' +
-          '1．甲方书面授权乙方，在地址为______________' + that.address + '___________________以甲方合作商的形式进行经营。（两种合作模式，加盟商模式与合作商模式。）\n' +
-          '\n' +
-          '2．本合同授权使用期限，自___ ' + that.date[0] + '_____年____' + that.date[1] + '____月___' + that.date[2] + '_____日起至____' + that.dateEnd[0] + '____年___' + that.dateEnd[1] + '_____月___' + that.dateEnd[2] + '_____日止。\n' +
-          '\n' +
-          '3.在合作服务区域在没有加盟商出现的情况下，乙方享有甲方合作商一切待遇。\n' +
-          '\n' +
-          '4.乙方可优先成为甲方区域的加盟商。\n' +
-          '\n' +
-          '第四条　商标的使用与承诺\n' +
-          '\n' +
-          '1．甲方承诺在本合同执行期间，提供的商标以及标志等，乙方有权向消费者推广。\n' +
-          '\n' +
-          '2．乙方不得在本合同规定以外的场所使用甲方商号、商标、标志、记号、样式、标签和招牌等。同时严禁使用与甲方商标相同或相似的作为乙方公司名的全部或一部分，或作其它用途。\n' +
-          '\n' +
-          '3．本合同终止或解除后，乙方不得以任何理由再使用甲方商标、标志、样式、招牌等。\n' +
-          '\n' +
-          '第五条　使用范围和使用要求\n' +
-          '\n' +
-          '1．乙方只能按甲方承诺的范围和方法使用甲方商标。\n' +
-          '\n' +
-          '2．在合同期内，乙方不得有以下行为：\n' +
-          '\n' +
-          '（1）降低公司形象，损害公司商标和经营技术资产；\n' +
-          '\n' +
-          '（2）不经甲方书面同意，不得向第三者泄密、传递公司经营技术资产。\n' +
-          '\n' +
-          '第六条　店面形象与商品质量要求\n' +
-          '\n' +
-          '1．甲方要求乙方保持合作店面的卫生与货物整洁。\n' +
-          '\n' +
-          '2．乙方所提供给消费者的商品必须安全健康。\n' +
-          '\n' +
-          '3．甲方提供的促销活动与物品都应按甲方要求进行陈列与推广。\n' +
-          '\n' +
-          '4．由甲方提供的货物有质量或滞销情况及时通知，保证商品的质量安全与及时流通处理。\n' +
-          '\n' +
-          '第七条　供货方式及要求\n' +
-          '\n' +
-          '1．甲方提供各种货物在平台后台展出，乙方有权选择采购与否。\n' +
-          '\n' +
-          '2．乙方订货可以电话、短信、微信、传真、后台下单等方式通知甲方。\n' +
-          '\n' +
-          '3．乙方在确认收货后付款，如有退货应提前通知甲方安排。\n' +
-          '\n' +
-          '4．兑换奖项以及货物退换的事项均应提前通知甲方，甲方将有会专车处理。\n' +
-          '\n' +
-          '第八条　甲方义务\n' +
-          '\n' +
-          '1. 协助乙方开发潜在消费者。\n' +
-          '\n' +
-          '2. 提供促销礼品与促销方式协助乙方做好商店销售工作。\n' +
-          '\n' +
-          '3. 策划各种公益活动拉动消费，增加消费者粘性。\n' +
-          '\n' +
-          '4．培训相关销售人员及销售技巧，店面管理、服务理念等。\n' +
-          '\n' +
-          '5．根据乙方特定消费群体制定相关促销活动。\n' +
-          '\n' +
-          '6. 负责解答线上消费者各种服务疑问，协助乙方货物上架指导工作。\n' +
-          '\n' +
-          '7. 培训乙方员工使用甲方软件系统，有效提高工作效率，提高销售机会与利润率。\n' +
-          '\n' +
-          '8. 免费提供有关的促销方案及活动资料。\n' +
-          '\n' +
-          '第九条　乙方责任\n' +
-          '\n' +
-          '1．必须保证提供消费者商品的安全性。\n' +
-          '\n' +
-          '2.因经营环境变化及其他原因，乙方希望变更本合同第三条的第1条授权的合作经营地点及位置时，必须向甲方提出书面变更申请，经甲方书面同意后方可变更。\n' +
-          '\n' +
-          '3．除第三条的第1条授权位置外，乙方另新增开合作商店，必须与甲方另签合同书后方可经营。\n' +
-          '\n' +
-          '4．乙方未征得甲方书面同意认可，不得将本合同规定的任何权利转让给予第三者。\n' +
-          '\n' +
-          '5．乙方在经营期间因自己的经营、管理等问题损害了他人利益时，由乙方自行承担赔偿损失的责任，甲方不承担任何责任。\n' +
-          '\n' +
-          '6．因乙方行为造成甲方被索赔责任时，乙方负担因此而产生的全部费用。\n' +
-          '\n' +
-          '7．乙方在经营期间，如因不可抗拒的困难可能发生营业中断或不能再继续营业时，必须以书面形式通知甲方。\n' +
-          '\n' +
-          '8．合同无论在何种情况下终止，乙方必须立即自行拆除甲方公司提供的，商标、标志代表性的一切营业象征物体。如乙方不主动拆除，甲方可以自行拆除作业，乙方必须负担为之产生的一切费用。\n' +
-          '\n' +
-          ' 9．乙方不得向第三者泄漏甲方按合同规定提供的经营技术资产、秘密及有损甲方利益的情报，并有责任保证其员工不向第三者泄漏及传递，此项在合同终止后仍然有效。\n' +
-          '\n' +
-          '第十条线上结算方式\n' +
-          '\n' +
-          '1.消费者线上付款，由甲方代收货款，每周结算一次并汇入乙方指定账户。\n' +
-          '\n' +
-          '2.乙方必须提供准确的綑绑银行卡号以及相关信息。\n' +
-          '\n' +
-          '3.由乙方提供信息错误而导致的资金损失乙方完全负责。\n' +
-          '\n' +
-          '4.消费者网上付款退款事项均为线上处理，乙方确认同意后由甲方平台先行退款到消费者付款账户。退款金额由甲方直接从乙方平台扣除。如有异议甲方拥有最终解释权。\n' +
-          '\n' +
-          '第十一条　合同续签\n' +
-          '\n' +
-          '本合同距到期日__30__天时，由乙方书面提出申请，经双方协商续签或终止合同。\n' +
-          '\n' +
-          '第十二条　协商及受理法院\n' +
-          '\n' +
-          '本合同未尽事宜，由当事者双方本着发展事业的愿望，坦诚地协商解决。本合同发生纠纷交付法律审理时，甲方所在地法院为专属受理法院。\n' +
-          '\n' +
-          '第十三条　本合同是电子合同，自双方签字盖章之日起生效。\n' +
-          '\n' +
-          '甲方（盖章）：深圳市熊小鲜科技有限公司\n' +
-          '\n' +
-          '代表人（签章）：' +
-          '\n' +
-          '乙方（签名）:' +
-          '\n' +
-          '日期：' + that.time + '' +
-          '\n' +
-          '注：为保证双方资金安全，请乙方提供真实有效的相关资料。'
-        ctx.setFontSize(14)
-        ctx.setFillStyle('#000000')
-        //ctx.fillText(fanstr2, 5, 40);
-        that.methods.drawText(ctx, fanstr1, 5, 30, 145, 280);
-        that.methods.drawText(ctx, fanstr2, 5, 60, 145, 280);
-        that.methods.drawText(ctx, fanstr3, 5, 110, 145, 280);
-        that.methods.drawText(ctx, fanstr4, 5, 150, 145, 280);
-        that.methods.drawText(ctx, fanstr5, 5, 220, 145, 280);
-        that.methods.drawText(ctx, fanstr6, 5, 250, 145, 280);
-        that.methods.drawText(ctx, fanstr7, 5, 340, 145, 280);
-        that.methods.drawText(ctx, fanstr8, 5, 370, 145, 280);
-        that.methods.drawText(ctx, fanstr9, 5, 450, 145, 280);
-        that.methods.drawText(ctx, fanstr10, 5, 510, 145, 280);
-        that.methods.drawText(ctx, fanstr11, 5, 540, 145, 280);
-        that.methods.drawText(ctx, fanstr12, 5, 620, 145, 280);
-        that.methods.drawText(ctx, fanstr13, 5, 680, 145, 280);
-        that.methods.drawText(ctx, fanstr14, 5, 720, 145, 280);
-        that.methods.drawText(ctx, fanstr15, 5, 750, 145, 280);
-        that.methods.drawText(ctx, fanstr16, 5, 780, 145, 280);
-        that.methods.drawText(ctx, fanstr17, 5, 820, 145, 280);
-        that.methods.drawText(ctx, fanstr18, 5, 890, 145, 280);
-        /*that.methods.drawText(ctx, fanstr19, 5, 930, 145, 280);
-        that.methods.drawText(ctx, fanstr20, 5, 970, 145, 280);*/
-        that.methods.drawText(ctx, fanstr21, 5, 930, 145, 280);
-        that.methods.drawText(ctx, fanstr22, 5, 960, 145, 280);
-
-        that.methods.drawText(ctx, fanstr23, 5, 1000, 145, 280);
-        that.methods.drawText(ctx, fanstr24, 5, 1030, 145, 280);
-
-        that.methods.drawText(ctx, fanstr25, 5, 1070, 145, 280);
-        that.methods.drawText(ctx, fanstr26, 5, 1110, 145, 280);
-        /* that.methods.drawText(ctx, fanstr25, 5, 1170, 145, 280);
-         that.methods.drawText(ctx, fanstr26, 5, 1210, 145, 280);*/
-        that.methods.drawText(ctx, fanstr27, 5, 1140, 145, 280);
-        that.methods.drawText(ctx, fanstr28, 5, 1180, 145, 280);
-        that.methods.drawText(ctx, fanstr29, 5, 1210, 145, 280);
-        that.methods.drawText(ctx, fanstr30, 5, 1250, 145, 280);
-        that.methods.drawText(ctx, fanstr31, 5, 1290, 145, 280);
-        that.methods.drawText(ctx, fanstr32, 5, 1320, 145, 280);
-        that.methods.drawText(ctx, fanstr33, 5, 1360, 145, 280);
-        that.methods.drawText(ctx, fanstr34, 5, 1400, 145, 280);
-        that.methods.drawText(ctx, fanstr35, 5, 1440, 145, 280);
-        that.methods.drawText(ctx, fanstr36, 5, 1480, 145, 280);
-        that.methods.drawText(ctx, fanstr37, 5, 1510, 145, 280);
-        that.methods.drawText(ctx, fanstr38, 5, 1540, 145, 280);
-        that.methods.drawText(ctx, fanstr39, 5, 1580, 145, 280);
-        that.methods.drawText(ctx, fanstr40, 5, 1620, 145, 280);
-
-        that.methods.drawText(ctx, fanstr41, 5, 1650, 145, 280);
-        that.methods.drawText(ctx, fanstr42, 5, 1690, 145, 280);
-        that.methods.drawText(ctx, fanstr43, 5, 1730, 145, 280);
-        that.methods.drawText(ctx, fanstr44, 5, 1760, 145, 280);
-        that.methods.drawText(ctx, fanstr45, 5, 1790, 145, 280);
-        that.methods.drawText(ctx, fanstr46, 5, 1820, 145, 280);
-        that.methods.drawText(ctx, fanstr47, 5, 1900, 145, 280);
-        that.methods.drawText(ctx, fanstr48, 5, 1960, 145, 280);
-        that.methods.drawText(ctx, fanstr49, 5, 2000, 145, 280);
-        that.methods.drawText(ctx, fanstr50, 5, 2060, 145, 280);
-        that.methods.drawText(ctx, fanstr51, 5, 2100, 145, 280);
-        that.methods.drawText(ctx, fanstr52, 5, 2160, 145, 280);
-        that.methods.drawText(ctx, fanstr53, 5, 2250, 145, 280);
-        that.methods.drawText(ctx, fanstr54, 5, 2330, 145, 280);
-        that.methods.drawText(ctx, fanstr55, 5, 2360, 145, 280);
-        that.methods.drawText(ctx, fanstr56, 5, 2400, 145, 280);
-        that.methods.drawText(ctx, fanstr57, 5, 2440, 145, 280);
-        that.methods.drawText(ctx, fanstr58, 5, 2480, 145, 280);
-        that.methods.drawText(ctx, fanstr59, 5, 2550, 145, 280);
-        that.methods.drawText(ctx, fanstr60, 5, 2580, 145, 280);
-        that.methods.drawText(ctx, fanstr61, 5, 2620, 145, 280);
-        that.methods.drawText(ctx, fanstr62, 5, 2650, 145, 280);
-        that.methods.drawText(ctx, fanstr63, 5, 2710, 145, 280);
-        that.methods.drawText(ctx, fanstr64, 5, 2750, 145, 280);
-        that.methods.drawText(ctx, fanstr65, 5, 2780, 145, 280);
-        that.methods.drawText(ctx, fanstr66, 5, 2810, 145, 280);
-        that.methods.drawText(ctx, fanstr67, 5, 2840, 145, 280);
-        that.methods.drawText(ctx, fanstr68, 5, 2870, 145, 280);
-        ctx.drawImage(bgImgPath, 150, 2770, 80, 80);
-        //that.methods.drawText(ctx, fanstr1, 5, 30, 145, 280);
-        ctx.stroke()
-        ctx.draw(false, function () {
-          // 3. canvas画布转成图片
-          wx.canvasToTempFilePath({
-            x: 0,
-            y: 0,
-            width: 375,
-            height: 2900,
-            destWidth: 375,
-            destHeight: 2900,
-            canvasId: 'share',
-            fileType: 'jpg',
-            success: function (res) {
-              console.log(res);
-              that.setData({
-                shareImgSrc: res.tempFilePath
-              })
-              if (!res.tempFilePath) {
-                wx.showModal({
-                  title: '提示',
-                  content: '图片绘制中，请稍后重试',
-                  showCancel: false
-                })
-              }
-              console.log(res.tempFilePath)
-              /*  wx.uploadFile({
-                  url: that.$parent.globalData.utURL + 'upload/needType',
-                  filePath: res.tempFilePath,
-                  name: 'file',
-                  formData: {
-                    type: "pic"
-                  },
-                  header: {
-                    "Content-Type": "multipart/form-data"
-                  },
-                  success: (res1) => {
-                    wx.navigateTo({
-                      url: '/pages/index'
-                    })
-                  }
-                })*/
-              wx.saveImageToPhotosAlbum({
-                filePath: res.tempFilePath,
-                success(res) {
-                  wx.hideLoading();
-                  wx.showToast({
-                    title: '保存成功',
-                  });
-                }
-              })
-              //4. 当用户点击分享到朋友圈时，将图片保存到相册
-              /*wx.saveImageToPhotosAlbum({
-                filePath: that.data.shareImgSrc,
-                success(res) {
-                  console.log(res);
-                  wx.showModal({
-                    title: '图片保存成功',
-                    content: '图片成功保存到相册了，去发圈噻~',
-                    showCancel: false,
-                    confirmText: '好哒',
-                    confirmColor: '#72B9C3',
-                    success: function (res) {
-                      if (res.confirm) {
-                        console.log('用户点击确定');
-                      }
-                      that.setData({
-                        canvasHidden: true
-                      })
-                    }
-                  })
-                }
-              })*/
-            },
-            fail: function (res) {
-              console.log(res)
-            }
-          })
-        });
+        wx.reLaunch({
+          url: '/pages/index'
+        })
       },
-      drawText(ctx, str, leftWidth, initHeight, titleHeight, canvasWidth) {
-        var lineWidth = 0;
-        var lastSubStrIndex = 0; //每次开始截取的字符串的索引
-        console.log(str.length);
-        for (var i = 0; i < str.length; i++) {
-          lineWidth += ctx.measureText(str[i]).width;
-          if (lineWidth > canvasWidth) {
-            ctx.fillText(str.substring(lastSubStrIndex, i), leftWidth, initHeight); //绘制截取部分
-            initHeight += 16; //16为字体的高度
-            lineWidth = 0;
-            lastSubStrIndex = i;
-            titleHeight += 30;
-          }
-          if (i == str.length - 1) { //绘制剩余部分
-            ctx.fillText(str.substring(lastSubStrIndex, i + 1), leftWidth, initHeight);
-          }
-        }
-        // 标题border-bottom 线距顶部距离
-        titleHeight = titleHeight + 10;
-        return titleHeight
-      }
     }
 
     onLoad() {
@@ -749,9 +166,6 @@
       wx.canvasToTempFilePath({
         canvasId: 'share',
         success: (res) => {
-          /* this.setData({
-             shareTempFilePath: res.tempFilePath
-           })*/
           context.draw(false, res.tempFilePath)
         }
       })

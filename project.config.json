@@ -9,8 +9,10 @@
 		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"appid": "wx629a56026d04518a",
-	"projectname": "bearxx",
+	"appid": "wx517b2a496ca75422",
+	"projectname": "wxStoreDom",
 	"miniprogramRoot": "dist/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }

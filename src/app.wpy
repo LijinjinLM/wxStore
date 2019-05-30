@@ -37,6 +37,7 @@
   export default class extends wepy.app {
     config = {
       pages: [
+        'pages/mine/login',
         'pages/index',
         'pages/test',
         'pages/mine/phoneLogin',
@@ -44,9 +45,13 @@
         'pages/addShop/map',
         'pages/addShop/canvas',
         'pages/addShop/contract',
-        'pages/addShop/storesIn',
-        'pages/mine/login',
+        'pages/addShop/storesIn'
       ],
+      "permission": {
+        "scope.userLocation": {
+          "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+      },
       window: {
         backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#fff',
@@ -59,24 +64,8 @@
       userInfo: null,
       //测试
       wsURL: 'http://devlop.shbao.shop/ws/',
-      adURL: 'http://devlop.shbao.shop/ad/',
-      amURL: 'http://devlop.shbao.shop/am/',
-      abURL: 'http://devlop.shbao.shop/ab/',
       utURL: 'http://devlop.shbao.shop/ut/',
       imgURL: 'http://devlop_img.shbao.shop/',
-
-      //  utURL:'http://wv1.shbao.shop/ut/',
-
-      //utURL: 'https://x.bearxx.com/',
-
-//    正式
-      /* baseURL:'http://abv3.bearxx.com/ws/',
-       adURL:'http://abv3.bearxx.com/ad/',
-       abURL:'http://abv3.bearxx.com/ab/',
-       utURL:'http://abv3.bearxx.com/ut/',
-       imgURL:'http://img.shbao.shop/',
-
-       */
     }
 
     constructor() {

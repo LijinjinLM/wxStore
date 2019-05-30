@@ -50,7 +50,7 @@
 
   export default class Registered extends wepy.page {
     config = {
-      navigationBarTitleText: '注册熊小鲜',
+      navigationBarTitleText: '注册',
       usingComponents: {
         "van-row": "../../components/vant/row/index",
         "van-col": "../../components/vant/col/index",

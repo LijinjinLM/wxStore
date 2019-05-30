@@ -14,7 +14,7 @@
     margin-left: 10px;
     margin-right: 5px;
     border-radius: 2px;
-    background: #87C9F4;
+    background: #FFA042;
   }
 
   .oval1 {
@@ -25,7 +25,7 @@
     margin-left: 10px;
     margin-right: 5px;
     border-radius: 2px;
-    background: #87C9F4;
+    background: #FFA042;
   }
 
   .nav {
@@ -49,7 +49,7 @@
     font-family: PingFang-SC-Medium;
     font-size: 14px !important;
     letter-spacing: 2px;
-    background: #4DBAF2;
+    background: #FFA042;
     color: #ffffff;
   }
 
@@ -93,41 +93,14 @@
 </style>
 <template>
   <view>
-    <view class='nav bg-white' style='height:40px'>
+    <view class='nav bg-white' style='height:40px;background: #FF813D;'>
       <view class='nav-title'>
         门店入驻
-        <image src='../../components/img/back.png' mode='aspectFit' class='back' bindtap='navBack'></image>
+        <!-- <image src='../../components/img/back.png' mode='aspectFit' class='back' bindtap='navBack'></image>-->
         <view class='back1' bindtap='formSubmit'>保存</view>
       </view>
     </view>
   </view>
-
-  <!-- <view wx:if="{{isShow}}">
-     <view class="map_container">
-       <van-row>
-         <van-col span="16">
-           <view class="section">
-             <van-cell-group>
-               <van-field
-                 value="{{ value }}"
-                 placeholder="输入关键词"
-                 border="{{ true }}"
-                 bind:change="onChange"
-               />
-             </van-cell-group>
-           </view>
-         </van-col>
-         <van-col span="8">
-           <button bindtap="bindKeyInput">搜索</button>
-         </van-col>
-       </van-row>
-       <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="17" show-location="true"
-            markers="{{markers}}" bindmarkertap="makertap"></map>
-     </view>
-     <view>
-       <button bindtap="bindKey">确定</button>
-     </view>
-   </view>-->
   <view style="margin-top: 10%;">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <van-cell-group>
@@ -171,10 +144,7 @@
           maxlength='11'
           bind:input="inputChange"
         />
-
-        <!--<van-area area-list="{{ AreaList }}" />-->
         <view class="section">
-          <!-- <view class="section__title">省市区选择器</view>-->
           <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
             <view class="picker" style="padding-top: 3%;padding-bottom: 4%;">
               <view style="float:left;padding-left: 4%;">店铺区域:</view>
@@ -239,12 +209,14 @@
         </view>
         <view class="section">
           <picker style="padding-top: 3%;padding-left: 4%;"
-            mode="date"
-            value="{{date}}"
-            start=""
-            end=""
-            bindchange="bindDateChange">
-            <view class="picker"> 开始时间  <text style="margin-left:7%;">{{date}}</text></view>
+                  mode="date"
+                  value="{{date}}"
+                  start=""
+                  end=""
+                  bindchange="bindDateChange">
+            <view class="picker"> 开始时间
+              <text style="margin-left:7%;">{{date}}</text>
+            </view>
           </picker>
           <view style="border-bottom: 1px #F4F4F4 solid;margin-top:13px;margin-left:13px;"></view>
         </view>
@@ -256,7 +228,9 @@
                   start=""
                   end=""
                   bindchange="bindDateEndChange">
-            <view class="picker"> 结束时间  <text style="margin-left:7%;">{{dateEnd}}</text></view>
+            <view class="picker"> 结束时间
+              <text style="margin-left:7%;">{{dateEnd}}</text>
+            </view>
           </picker>
           <view style="border-bottom: 1px #F4F4F4 solid;margin-top:13px;margin-left:13px;"></view>
         </view>
@@ -322,22 +296,6 @@
         </view>
         <view style="clear: both"></view>
         <view class="line"></view>
-        <!--<view class="section__ctn">
-          <view class="oval"></view>
-          <text style="font-weight:bold">店铺证件及资料</text>
-          <view class="section__ctn" style="margin-left: 10px;">
-            <view style="float: left;width:25%;">
-              <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
-                     src="../components/img/add.png" bindtap="chooseImage(3)"></image>
-            </view>
-            <view style="float: left;width:25%;" wx:for="{{images2}}" wx:key="*this"
-                  wx:if="{{images2.length>0}}">
-              <image style="width:96%; height: 90px; margin-top: 8px;" mode="scaleToFill" src="{{item}}"></image>
-              <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
-                     src="../components/img/close.png" data-idx="{{index}}" bindtap="removeImages(2)"></image>
-            </view>
-          </view>
-        </view>-->
         <view class="section__ctn">
           <van-row>
             <van-col span="8">
@@ -523,8 +481,8 @@
       areaid: '9687',
       AreaList: {},
       date: '',
-      dateEnd:'',
-      sNumber:''
+      dateEnd: '',
+      sNumber: ''
     }
     methods = {
       inputChange(e) {
@@ -652,20 +610,20 @@
       onChange(e) {
         this.radio = e.detail
       },
-      inputChangeS(e){
+      inputChangeS(e) {
         this.sNumber = e.detail
         this.setData({
           sNumber: this.sNumber
         })
       },
       bindDateChange(e) {
-       this.date=e.detail.value
+        this.date = e.detail.value
         this.setData({
           date: this.date
         })
       },
       bindDateEndChange(e) {
-        this.dateEnd=e.detail.value
+        this.dateEnd = e.detail.value
         this.setData({
           date: this.dateEnd
         })
@@ -1157,8 +1115,8 @@
         })
       },
       formSubmit: function () {
-       // this.methods.activeFocus('1');
-        let _this=this;
+        // this.methods.activeFocus('1');
+        let _this = this;
         wx.setStorage({
           key: "sNumber",
           data: _this.sNumber
@@ -1227,57 +1185,52 @@
           key: "longitude",
           data: _this.longitude
         })
-        setTimeout(function () {
-          wx.navigateTo({
-            url: '/pages/addShop/contract'
+        this.arr1 = "";
+        this.arr2 = [];
+        this.arr3 = "";
+        this.arr4 = "";
+        this.arr5 = "";
+        this.arr6 = "";
+        this.arr7 = "";
+        this.arr8 = "";
+        if (this.phone.length == 0 || this.shopname.length == 0 || this.shopkeeper.length == 0 ||
+          this.landlordName.length == 0 || this.idCard.length == 0 || this.salesman.length == 0 ||
+          this.address.length == 0 || this.images.length == 0 || this.images1.length == 0 || this.images2.length == 0
+          || this.images3.length == 0 || this.images4.length == 0 || this.images5.length == 0 || this.images6.length == 0 || this.images7.length == 0 ||
+          this.date.length == 0 || this.dateEnd.length == 0 || this.sNumber.length == 0) {
+          wx.showToast({
+            title: '请检查是否全部填写和上传！',
+            icon: 'none',
+            duration: 2000
           })
-        }, 1000)
-         /*this.arr1 = "";
-         this.arr2 = [];
-         this.arr3 = "";
-         this.arr4 = "";
-         this.arr5 = "";
-         this.arr6 = "";
-         this.arr7 = "";
-         this.arr8 = "";
-         if (this.phone.length == 0 || this.shopname.length == 0 || this.shopkeeper.length == 0 ||
-           this.landlordName.length == 0 || this.idCard.length == 0 || this.salesman.length == 0 ||
-           this.address.length == 0 || this.images.length == 0 || this.images1.length == 0 || this.images2.length == 0
-         ||this.images3.length == 0||this.images4.length == 0||this.images5.length == 0||this.images6.length == 0||this.images7.length == 0||
-         this.date.length == 0||this.dateEnd.length == 0||this.sNumber.length == 0) {
-           wx.showToast({
-             title: '请检查是否全部填写和上传！',
-             icon: 'none',
-             duration: 2000
-           })
-           return;
-         }
-         if(this.phone.length!=11){
-           wx.showToast({
-             title: '店铺联系号码有误',
-             icon: 'none',
-             duration: 2000
-           })
-           return;
-         }
-         if(this.shopkeeper.length!=11){
-           wx.showToast({
-             title: '店主联系号码有误',
-             icon: 'none',
-             duration: 2000
-           })
-           return;
-         }
-         var patt1 = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
-         if (!(patt1.test(this.idCard))) {
-           wx.showToast({
-             title: '身份证号码有误',
-             icon: 'none',
-             duration: 2000
-           })
-           return;
-         }
-        if(this.dateEnd<=this.date){
+          return;
+        }
+        if (this.phone.length != 11) {
+          wx.showToast({
+            title: '店铺联系号码有误',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (this.shopkeeper.length != 11) {
+          wx.showToast({
+            title: '店主联系号码有误',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        var patt1 = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+        if (!(patt1.test(this.idCard))) {
+          wx.showToast({
+            title: '身份证号码有误',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+        if (this.dateEnd <= this.date) {
           wx.showToast({
             title: '结束时间要大于开始时间',
             icon: 'none',
@@ -1286,116 +1239,20 @@
           return;
         }
 
-         this.arr1 = this.images.substr(this.images.indexOf("pic"));
-         for (var i = 0; i < this.images1.length; i++) {
-           this.arr2.push(this.images1[i].substr(this.images1[i].indexOf("pic")));
-         }
-         this.arr3=this.images2.substr(this.images2.indexOf("pic"));
-         this.arr4=this.images3.substr(this.images3.indexOf("pic"));
-         this.arr5=this.images4.substr(this.images4.indexOf("pic"));
-         this.arr6=this.images5.substr(this.images5.indexOf("pic"));
-         this.arr7=this.images6.substr(this.images6.indexOf("pic"));
-         this.arr8=this.images7.substr(this.images7.indexOf("pic"));
-         var license=this.arr3+','+this.arr4+','+this.arr5+','+this.arr6+','+this.arr7+','+this.arr8;
-         let _this = this;
-         console.log(_this.token);
-         if (_this.isSubmit) {
-           _this.isSubmit = false;
-           wx.request({
-             url: this.$parent.globalData.amURL + 'saler/addShop',
-             method: 'post',
-             data: {
-               cooperat: 1,
-               shopname: this.shopname,
-               phone: this.phone,
-               proid: this.proid,
-               cityid: this.cityid,
-               areaid: this.areaid,
-               adr_detail: this.address,
-               lon: this.longitude,
-               lat: this.latitude,
-               username: this.landlordName,
-               telphone: this.shopkeeper,
-               idcard: this.idCard,
-               headpic: this.arr1,
-               environment: this.arr2,
-               license: license,
-               operator: this.salesman
-             },
-             header: {
-               'content-type': 'application/x-www-form-urlencoded', // 默认值
-               'token': 'Bearer ' + _this.token
-             },
-             success(res) {
-               if (res.data.code == 101) {
-                 console.log(res.data)
-                 /!*_this.shopname = "";
-                 _this.phone = "";
-                 _this.address = "";
-                 _this.landlordName = "";
-                 _this.shopkeeper = "";
-                 _this.idCard = "";
-                 _this.images = "";
-                 _this.images1 = [];
-                 _this.images2 = [];
-                 _this.salesman = "";
-                 _this.region = ['广东省', '深圳市', '宝安区'];
-                 _this.proid = '9655';
-                 _this.cityid = '9683';
-                 _this.areaid = '9687';
-                 _this.longitude = '';
-                 _this.latitude = '';
-                 _this.setData({
-                   shopname: _this.shopname,
-                   phone: _this.phone,
-                   region: _this.region,
-                   proid: _this.proid,
-                   cityid: _this.cityid,
-                   areaid: _this.areaid,
-                   longitude: _this.longitude,
-                   latitude: _this.latitude,
-                   address: _this.address,
-                   landlordName: _this.landlordName,
-                   shopkeeper: _this.shopkeeper,
-                   idCard: _this.idCard,
-                   images: _this.images,
-                   images1: _this.images1,
-                   images2: _this.images2,
-                   salesman: _this.salesman
-                 })*!/
-                // _this.methods.removeStr();
-                _this.methods.activeFocus();
-                 wx.showToast({
-                   title: res.data.tip,
-                   icon: 'none',
-                   duration: 3000
-                 })
-                 setTimeout(function () {
-                   wx.reLaunch({
-                     url: '/pages/index'
-                   })
-                 },1000)
-                 _this.isSubmit = true;
-               } else if (res.data.code == 102) {
-                 wx.showToast({
-                   title: res.data.tip,
-                   icon: 'none',
-                   duration: 2000
-                 })
-                 _this.isSubmit = true;
-               } else if (res.data.code == 201) {
-                 wx.showToast({
-                   title: res.data.tip,
-                   icon: 'none',
-                   duration: 2000
-                 })
-                 wx.reLaunch({
-                   url: '/pages/mine/login'
-                 })
-               }
-             }
-           })
-         }*/
+        this.arr1 = this.images.substr(this.images.indexOf("pic"));
+        for (var i = 0; i < this.images1.length; i++) {
+          this.arr2.push(this.images1[i].substr(this.images1[i].indexOf("pic")));
+        }
+        this.arr3 = this.images2.substr(this.images2.indexOf("pic"));
+        this.arr4 = this.images3.substr(this.images3.indexOf("pic"));
+        this.arr5 = this.images4.substr(this.images4.indexOf("pic"));
+        this.arr6 = this.images5.substr(this.images5.indexOf("pic"));
+        this.arr7 = this.images6.substr(this.images6.indexOf("pic"));
+        this.arr8 = this.images7.substr(this.images7.indexOf("pic"));
+        var license = this.arr3 + ',' + this.arr4 + ',' + this.arr5 + ',' + this.arr6 + ',' + this.arr7 + ',' + this.arr8;
+        wx.reLaunch({
+          url: 'pages/addShop/contract'
+        })
       },
       formReset: function () {
         console.log('form发生了reset事件')
@@ -1510,11 +1367,11 @@
       },
       activeFocus(str) {
         let _this = this;
-       // if(!str){
-          wx.navigateTo({
-            url: '/pages/addShop/map?city=' + this.region[1]
-          })
-       // }
+        // if(!str){
+        wx.navigateTo({
+          url: '/pages/addShop/map?city=' + this.region[1]
+        })
+        // }
         console.log('4')
         wx.setStorage({
           key: "sNumber",
