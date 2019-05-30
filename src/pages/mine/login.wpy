@@ -1,0 +1,264 @@
+<style lang="less">
+
+</style>
+<template>
+  <view style='margin-top: 15%;'>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <van-cell-group>
+        <van-field
+          value="{{ username }}"
+          label="账号"
+          clearable
+          placeholder="请输入您的账号"
+          type='number'
+          maxlength='11'
+          bind:input="inputuser"
+        />
+        <van-field
+          value="{{ password }}"
+          type="password"
+          clearable
+          label="密码"
+          bindinput="inputpass"
+          placeholder="请输入您的密码"
+        />
+      </van-cell-group>
+
+      <view class="btn-area">
+        <button formType="submit" style="border: 0;color: white;background: #FF813D;margin-top: 10%;width: 90%;">登录
+        </button>
+      </view>
+    </form>
+    <view
+      style='font-size: 22rpx;width: 100%;margin-top: 5%;display: flex;flex-wrap:wrap;justify-content:space-between;'>
+     <!-- <view style='color: #FF813D;padding-left: 5%;' bindtap='navToPhoneLogin'>手机验证码登录</view>-->
+      <view style='color: #FF813D;padding-left: 5%;' bindtap='navToRegistered'>忘记密码</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Login extends wepy.page {
+    config = {
+      navigationBarTitleText: '登录熊小鲜',
+      usingComponents: {
+        "van-row": "../../components/vant/row/index",
+        "van-col": "../../components/vant/col/index",
+        "van-field": "../../components/vant/field/index"
+      }
+    };
+
+    data = {
+      username: '',
+      password: ''
+    }
+
+    methods = {
+      removeStr() {
+        var that = this;
+        wx.removeStorage({//获取本地缓存
+          key: "sNumber",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "signImages",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "date",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "dateEnd",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "isDisabled",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "isDisabled1",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "value",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "latitude",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "longitude",
+          success: function (res) {
+          },
+        })
+
+
+        wx.removeStorage({//获取本地缓存
+          key: "phone",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "shopname",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "shopkeeper",
+          success: function (res) {
+          },
+        })
+
+        wx.removeStorage({//获取本地缓存
+          key: "landlordName",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "idCard",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "salesman",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "region",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images1",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images2",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images",
+          success: function (res) {
+
+          },
+        })
+      },
+      navToPhoneLogin() {
+        wx.navigateTo({
+          url: '/pages/mine/phoneLogin'
+        })
+      },
+      navToRegistered() {
+        wx.navigateTo({
+          url: '/pages/mine/registered'
+        })
+      },
+      formSubmit: function (e) {
+        let _this=this;
+        var md5 = require('../../components/js/md5.js')
+        if (this.username.length == 0) {
+          wx.showToast({
+            title: '手机号不能为空',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if (this.password.length == 0) {
+          wx.showToast({
+            title: '手机号不能为空',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+         /* wx.navigateTo({
+            url: '/pages/index'
+          })*/
+          wx.request({
+            url: this.$parent.globalData.utURL + 'login/index',
+            method: 'post',
+            data: {
+              phone: this.username,
+              pass: md5.hex_md5(this.password),
+              /*role: 'buyer',
+              apptype: 'X'*/
+              role:'manager',
+              apptype: "W"
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success(res) {
+
+              if (res.data.code == 101) {
+                console.log(res.data)
+                wx.setStorage({
+                  key: "token",
+                  data: res.data.data.token
+                })
+                wx.setStorage({
+                  key: "headpic",
+                  data: res.data.data.headpic
+                })
+                wx.setStorage({
+                  key: "username",
+                  data: res.data.data.username
+                })
+                wx.setStorage({
+                  key: "userid",
+                  data: res.data.data.user_id
+                })
+                _this.methods.removeStr();
+                wx.navigateTo({
+                  url: '/pages/index'
+                })
+              } else if (res.data.code == 102) {
+                wx.showToast({
+                  title: res.data.tip,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
+        }
+
+      },
+      formReset: function () {
+        console.log('form发生了reset事件')
+      },
+      inputuser(e) {
+        this.username = e.detail
+      },
+      inputpass(e) {
+        this.password = e.detail
+      }
+    }
+
+    onLoad() {
+
+    }
+
+    onUnload() {
+      /*wx.reLaunch({
+        url: '/pages/index'
+      })*/
+    }
+  }
+</script>

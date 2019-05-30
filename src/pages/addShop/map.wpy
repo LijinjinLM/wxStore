@@ -1,0 +1,260 @@
+<style lang="less">
+  .map_container {
+    height: 500px;
+    width: 100%;
+    .map {
+      height: 100%;
+    }
+  }
+</style>
+<template>
+  <view class="map_container"  style='height:{{h}}px'>
+    <van-row>
+      <van-search
+        value="{{ value }}"
+        placeholder="请输入搜索关键词"
+        bind:change="onChange"
+        use-action-slot
+      >
+        <view slot="action"  bind:tap="bindKeyInput">搜索</view>
+      </van-search>
+     <!-- <van-col span="20">
+        &lt;!&ndash;<view style="border: 1px solid #cccccc;">
+          <van-cell-group>
+            <van-field
+              value="{{ value }}"
+              placeholder="输入关键词"
+              border="{{ false }}"
+              bind:change="onChange"
+            />
+          </van-cell-group>
+        </view>&ndash;&gt;
+      </van-col>
+      <van-col span="4">
+        <button bindtap="bindKeyInput" style="font-size:13px;color: white;background: #FF813D;">搜索</button>
+      </van-col>-->
+    </van-row>
+    <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="17" show-location="true"
+         markers="{{markers}}" bindmarkertap="makertap"></map>
+    <view class="rgc_info" >
+      <button bindtap="bindKey" style="font-size:15px;color: white;background: #FF813D;">确定</button>
+    </view>
+  </view>
+ <!-- <view class="rgc_info">
+    <text>{{rgcData.address}}</text>
+    <text>{{rgcData.desc}}</text>
+    <text>{{rgcData.business}}</text>
+  </view>-->
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Map extends wepy.page {
+    config = {
+      navigationBarTitleText: '门店入驻',
+      usingComponents: {
+        "van-row": "../../components/vant/row/index",
+        "van-col": "../../components/vant/col/index",
+        "van-field": "../../components/vant/field/index",
+       /* "van-radio": "../components/vant/radio/index",*/
+       /* "van-radio-group": "../components/vant/radio-group/index",*/
+       /* "van-area": "../components/vant/area/index",*/
+        "van-search": "../../components/vant/search/index"
+      }
+    };
+
+    data = {
+      markers: [],
+      wxMarkerData: [],
+      latitude: '',
+      longitude: '',
+      value: '',
+      value1:'',
+      rgcData: {},
+      city: "",
+      h:''
+    }
+
+    methods = {
+      onChange(e) {
+        this.value = e.detail;
+      },
+      bindKey() {
+        let _this = this;
+        var v;
+        if(_this.value.length==0){
+            v=_this.value1;
+        }else{
+            v=_this.value;
+        }
+        wx.setStorage({
+          key: "value",
+          data: v
+        })
+        wx.setStorage({
+          key: "latitude",
+          data: _this.latitude
+        })
+        wx.setStorage({
+          key: "longitude",
+          data: _this.longitude
+        })
+        wx.navigateBack({     //返回上一页面或多级页面
+          delta:1
+        })
+        wx.reLaunch({
+          url: '/pages/addShop/storesIn'
+        })
+        /*wx.navigateTo({
+          url: '/pages/storesIn?value'+v+'latitude'+_this.latitude+'longitude'+_this.longitude
+        })
+
+       /* console.log('dj')
+        wx.redirectTo({
+          url: '/pages/storesIn'
+        })
+        console.log('djjjj')*/
+      },
+      bindKeyInput() {
+        let that = this;
+        var bmap = require('../../components/js/bmap-wx.min.js');
+        let BMap = new bmap.BMapWX({
+          ak: 'DRoaTub4Fo7EFqMrGoKyv66tyAUDsjZT'
+        });
+        let fail = function () {
+        };
+        let success = function (data) {
+          /* console.log(data.wxMarkerData);
+           that.wxMarkerData = data[0];
+           that.setData({
+             markers: that.wxMarkerData
+           });*/
+          if(data.result!='') {
+            var pa;
+            for (var i = 0; i < data.result.length; i++) {
+              if (data.result[i].location){
+                   pa=i;
+                   break;
+                }
+            }
+            that.wxMarkerData = data.result[pa];
+            console.log(data.result[pa].location)
+            var latitudet = data.result[pa].location.lat;
+            var longitude = data.result[pa].location.lng;
+            var aa = latitudet + ',' + longitude;
+            let fail1 = function () {
+            };
+            let success1 = function (data1) {
+              that.wxMarkerData = data1.wxMarkerData;
+              that.setData({
+                markers: that.wxMarkerData
+              });
+            };
+            that.value= data.result[pa].name;
+            that.setData({
+              value: that.value
+            });
+            that.setData({
+              latitude: data.result[pa].location.lat
+            });
+            that.setData({
+              longitude: data.result[pa].location.lng
+            });
+            BMap.regeocoding({
+              location: aa,
+              fail: fail1,
+              success: success1,
+              iconPath: '../../components/img/marker_red.png',
+              iconTapPath: '../../components/img/marker_red.png'
+            });
+          }else{
+            wx.showToast({
+              title: '请输入详细地址',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }
+        // 发起suggestion检索请求 suggestion regeocoding search
+        BMap.suggestion({
+          query: this.value,
+          region: this.city,
+          city_limit: true,
+          fail: fail,
+          success: success,
+          iconPath: '../../components/img/marker_red.png',
+          iconTapPath: '../../components/img/marker_red.png'
+        });
+
+      },
+      makertap(e) {
+        var that = this;
+        var id = e.markerId;
+        that.methods.showSearchInfo(that.wxMarkerData, id);
+      },
+      showSearchInfo(data, i) {
+        var that = this;
+        /* that.setData({
+           rgcData: {
+             address: '地址：' + data[i].address + '\n',
+             desc: '描述：' + data[i].desc + '\n',
+             business: '商圈：' + data[i].business
+           }
+         });*/
+      }
+    }
+
+    onLoad(op) {
+      var that = this;
+      wx.getSystemInfo({
+        success: function(res) {
+          let h = res.windowHeight- 82;
+          that.h= h;
+          that.setData({
+            h: that.h
+          })
+        }
+      })
+      that.city = op.city;
+      that.setData({
+        city: that.city
+      })
+      console.log(that.city);
+      var bmap = require('../../components/js/bmap-wx.min.js');
+      // var wxMarkerData = [];
+      // 新建百度地图对象
+      var BMap = new bmap.BMapWX({
+        ak: 'DRoaTub4Fo7EFqMrGoKyv66tyAUDsjZT'
+      });
+      var fail = function (data) {
+        console.log(data)
+      };
+      var success = function (data) {
+        console.log(data.wxMarkerData);
+        that.wxMarkerData = data.wxMarkerData;
+        that.markers = data.wxMarkerData;
+        that.latitude = that.wxMarkerData[0].latitude;
+        that.longitude = that.wxMarkerData[0].longitude;
+        that.value1 = data.wxMarkerData[0].address;
+        that.setData({
+          markers: that.markers
+        });
+        that.setData({
+          latitude: that.latitude
+        });
+        that.setData({
+          longitude: that.longitude
+        });
+      }
+      // 发起regeocoding检索请求
+      BMap.regeocoding({
+        fail: fail,
+        success: success,
+        iconPath: '../../components/img/marker_red.png',
+        iconTapPath: '../../components/img/marker_red.png'
+      });
+    }
+  }
+</script>
+

@@ -1,0 +1,196 @@
+<style lang="less">
+
+</style>
+<template>
+  <view style='margin-top: 15%;'>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <van-cell-group>
+        <van-field
+          value="{{ username }}"
+          label="账号"
+          placeholder="请输入您的账号"
+          type='number'
+          maxlength='11'
+          bind:input="inputuser"
+        />
+        <van-field
+          value="{{ code }}"
+          center
+          clearable
+          label="验证码"
+          placeholder="请输入短信验证码"
+          maxlength='4'
+          use-button-slot
+          bindinput="inputcode"
+        >
+          <van-button disabled='{{buttonBolled}}' plain bind:click='SMScode' slot="button" size="small" type="primary">
+            {{downTime}}
+          </van-button>
+        </van-field>
+
+        <van-field
+          value="{{ password }}"
+          type="password"
+          label="密码"
+          bindinput="inputpass"
+          placeholder="请输入您的密码"
+        />
+      </van-cell-group>
+
+      <view class="btn-area">
+        <button formType="submit" style="border: 0;color: white;background: #FF813D;margin-top: 10%;width: 90%;">注册
+        </button>
+      </view>
+    </form>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Registered extends wepy.page {
+    config = {
+      navigationBarTitleText: '注册熊小鲜',
+      usingComponents: {
+        "van-row": "../../components/vant/row/index",
+        "van-col": "../../components/vant/col/index",
+        "van-field": "../../components/vant/field/index",
+        "van-button": "../../components/vant/button/index"
+      }
+    };
+
+    data = {
+      username: '',
+      password: '',
+      code: '',
+      downTime: '获取验证码',
+      codeTime: '',//定时器的id
+      buttonBolled: false,
+      isSub:true,
+    }
+
+    methods = {
+      SMScode() {
+        var _this = this
+        if (_this.username.length < 11) {
+          wx.showToast({
+            title: '请输入正确的手机号码',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          var countDownNum = 60
+          if(_this.isSub) {
+            _this.isSub = false;
+            wx.request({
+              url: _this.$parent.globalData.utURL + 'login/alisms',
+              method: 'post',
+              data: {
+                type: 'login',
+                phone: _this.username,
+                role: 'manager',
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded' // 默认值
+              },
+              success(res) {
+                if (res.data.code == 101) {
+                  _this.data.codeTime = setInterval(function () {
+                    countDownNum--;
+                    if (countDownNum == 0) {
+                      _this.downTime = '获取验证码';
+                      _this.buttonBolled = false;
+                      clearInterval(_this.data.codeTime);
+                      _this.$apply();
+                    } else {
+                      _this.downTime = countDownNum + 's';
+                      _this.buttonBolled = true;
+                      _this.$apply();
+                    }
+                  }, 1000)
+                }
+                _this.isSub=true;
+                wx.showToast({
+                  title: res.data.tip,
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            })
+          }
+        }
+
+      },
+      formSubmit: function (e) {
+        var md5 = require('../../components/js/md5')
+        if (this.username.length == 0) {
+          wx.showToast({
+            title: '手机号不能为空',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if (this.code.length == 0) {
+          wx.showToast({
+            title: '验证码不能为空',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if (this.password.length == 0) {
+          wx.showToast({
+            title: '密码不能为空',
+            icon: 'none',
+            duration: 2000
+          })
+        } else {
+          wx.request({
+            url: this.$parent.globalData.amURL + 'me/forgetPass',
+            method: 'post',
+            data: {
+              phone: this.username,
+              pass: md5.hex_md5(this.password),
+              code: this.code,
+              role: 'manager',
+              apptype: 'X'
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            success(res) {
+              wx.showToast({
+                title: res.data.tip,
+                icon: 'none',
+                duration: 2000
+              })
+              if (res.data.code == 101) {
+                console.log(res.data)
+                setTimeout(function () {
+                  wx.reLaunch({
+                    url: '/pages/mine/login'
+                  })
+                },1000)
+              }
+            }
+          })
+        }
+
+      },
+      formReset: function () {
+        console.log('form发生了reset事件')
+      },
+      inputuser(e) {
+        this.username = e.detail
+      },
+      inputcode(e) {
+        this.code = e.detail
+      },
+      inputpass(e) {
+        this.password = e.detail
+      }
+    }
+
+    onLoad() {
+
+    }
+
+  }
+</script>

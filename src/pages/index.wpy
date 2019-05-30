@@ -1,0 +1,56 @@
+<style lang="less">
+</style>
+<template>
+  <view>
+    <van-row>
+      <van-col span="6">
+        <view bindtap='navToStoresIn' style="text-align: center">
+          <image style="width:44px; height: 44px;" mode="scaleToFill"
+                 src="../components/img/addShop.png"></image>
+          <view>增加店铺</view>
+        </view>
+      </van-col>
+      <van-col span="6">
+      </van-col>
+      <van-col span="6">
+      </van-col>
+      <van-col span="6">
+      </van-col>
+    </van-row>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+    navigationBarTitleText: '首页',
+    usingComponents: {
+      "van-row": "../../components/vant/row/index",
+      "van-col": "../../components/vant/col/index"
+    }
+  }
+    components = {}
+
+    data = {}
+
+    computed = {}
+
+    methods = {
+      navToStoresIn() {
+        wx.navigateTo({
+          url: '/pages/addShop/storesIn'
+          //url: '/pages/addShop/canvas'
+          //url: '/pages/addShop/contract'
+        })
+      }
+    }
+
+    events = {}
+
+    onLoad() {
+
+    }
+  }
+</script>

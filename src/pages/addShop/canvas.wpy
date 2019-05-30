@@ -1,0 +1,280 @@
+<style lang="less">
+  /*.wrapper {
+    width: 100%;
+    height: 95vh;
+    margin: 30rpx 0;
+    overflow: hidden;
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 28rpx;
+  }
+
+  .handWriting {
+    background: #fff;
+    width: 100%;
+    height: 95vh;
+  }
+
+  .handRight {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .handCenter {
+    border: 4rpx dashed #e9e9e9;
+    flex: 5;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .handTitle {
+    transform: rotate(90deg);
+    flex: 1;
+    color: #666;
+  }
+
+  .handBtn button {
+    font-size: 28rpx;
+  }
+
+  .handBtn {
+    height: 95vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    flex: 1;
+  }
+
+  .delBtn {
+    position: absolute;
+    top: 450rpx;
+    left: 0rpx;
+    transform: rotate(90deg);
+    color: #666;
+  }
+  .delBtn1 {
+    position: absolute;
+    top: 650rpx;
+    left: 0rpx;
+    transform: rotate(90deg);
+    color: #666;
+  }
+
+  .delBtn image {
+    position: absolute;
+    top: 13rpx;
+    left: 25rpx;
+  }*/
+  .handCenter {
+    border: 4rpx dashed #e9e9e9;
+    flex: 5;
+    overflow: hidden;
+    box-sizing: border-box;
+    .handWriting {
+      background: #fff;
+      width: 100%;
+      height: 50vh;
+    }
+  }
+</style>
+<template>
+  <view class="wrapper">
+    <!--<view class="handBtn">
+      <button bindtap="cleardraw" class="delBtn" type="default" >重 写</button>
+      <button bindtap="clickMe" class="delBtn1" open-type="getuserinfo">完 成</button>
+    </view>
+    <view class="handCenter">
+      <canvas class="handWriting" id="canvas" canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback">
+
+      </canvas>
+    </view>
+    <view class="handRight">
+      <view class="handTitle">签名板</view>
+    </view>-->
+    <view class="handRight" style="text-align: center">
+      <view class="handTitle">签名板</view>
+    </view>
+    <view class="handCenter">
+      <canvas class="handWriting" id="canvas" canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback">
+
+      </canvas>
+    </view>
+    <view class="handBtn" style="margin-top: 1%">
+      <button bindtap="cleardraw" class="delBtn" type="default" style="width: 50%;float: left;background: #FF813D;">重 写</button>
+      <button bindtap="clickMe" class="delBtn1" open-type="getuserinfo" style="width: 50%;float: right;background: #FF813D;">完 成</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Canvas extends wepy.page {
+    config = {
+      navigationBarTitleText: '',
+      usingComponents: {
+        "van-row": "../../components/vant/row/index",
+      }
+    };
+    data = {
+      context:null,
+      isButtonDown:false,
+      arrx:[],
+      arry:[],
+      arrz:[],
+      canvasw:0,
+      canvash:0
+      /*src: "",
+      img: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=578899140,1412678472&fm=27&gp=0.jpg",
+      rpx: ''*/
+    }
+    methods = {
+      canvasIdErrorCallback(e) {
+        console.error(e.detail.errMsg)
+      },
+      //开始
+      canvasStart(event) {
+        this.isButtonDown = true;
+        this.arrz.push(0);
+        this.arrx.push(event.changedTouches[0].x);
+        this.arry.push(event.changedTouches[0].y);
+      },
+      canvasMove(event) {
+        let that = this
+        if (that.isButtonDown) {
+          that.arrz.push(1);
+          console.log(event)
+          that.arrx.push(event.changedTouches[0].x);
+          that.arry.push(event.changedTouches[0].y);
+        };
+
+        for (var i = 0; i < that.arrx.length; i++) {
+          if (that.arrz[i] == 0) {
+            that.context.moveTo( that.arrx[i],  that.arry[i])
+          } else {
+            that.context.lineTo( that.arrx[i],  that.arry[i])
+          };
+
+        };
+        that.context.clearRect(0, 0, that.canvasw, that.canvash);
+        that.context.setStrokeStyle('#000000');
+        that.context.setLineWidth(4);
+        that.context.setLineCap('round');
+        that.context.setLineJoin('round');
+        that.context.stroke();
+
+        that.context.draw(false);
+        that.setData({
+          context:that.context
+        })
+      },
+      // 点击保存图片
+      clickMe() {
+        let _this=this;
+        wx.canvasToTempFilePath({
+          canvasId: 'canvas',
+          fileType: 'jpg',
+          success: function (res) {
+            console.log(res)
+           /* var file=res.tempFilePath.substr(res.tempFilePath.indexOf('tmp/')+4);
+            console.log(file)*/
+            wx.uploadFile({
+              url: _this.$parent.globalData.utURL + 'upload/needType',
+              filePath: res.tempFilePath,
+              name: 'file',
+              formData: {
+                type: "pic"
+              },
+              header: {
+                "Content-Type": "multipart/form-data"
+              },
+              success: (res1) => {
+                console.log('dd')
+                var data = JSON.parse(res1.data);
+                wx.setStorage({
+                  key: "signImages",
+                  data: _this.$parent.globalData.imgURL + data.data[0]
+                })
+                wx.setStorage({
+                  key: "signImages1",
+                  data: res.tempFilePath
+                })
+                wx.navigateTo({
+                  url: '/pages/addShop/contract'
+                })
+              }
+            })
+           /* wx.saveImageToPhotosAlbum({
+              filePath: res.tempFilePath,
+              success(res) {
+                console.log('你好'+res)
+                wx.hideLoading();
+                wx.showToast({
+                  title: '保存成功',
+                });
+                // //存入服务器
+                // wx.uploadFile({
+                //   url: 'a.php', //接口地址
+                //   filePath: res.tempFilePath,
+                //   name: 'file',
+                //   formData: {                                 //HTTP 请求中其他额外的 form data
+                //     'user': 'test'
+                //   },
+                //   success: function (res) {
+                //     console.log(res);
+
+                //   },
+                //   fail: function (res) {
+                //     console.log(res);
+                //   },
+                //   complete: function (res) {
+                //   }
+                // });
+              },
+              fail() {
+                wx.hideLoading()
+              }
+            })*/
+          }
+        })
+      },
+      canvasEnd(event) {
+        this.isButtonDown = false;
+      },
+      cleardraw() {
+        //清除画布
+        this.arrx = [];
+        this.arry = [];
+        this.arrz = [];
+        this.context.draw(false);
+      }
+    }
+    onLoad(){
+      let that = this
+      // 使用 wx.createthis.context 获取绘图上下文 this.context
+      that.context = wx.createCanvasContext('canvas');
+      that.context.beginPath()
+      that.context.setStrokeStyle('#000000');
+      that.context.setLineWidth(4);
+      that.context.setLineCap('round');
+      that.context.setLineJoin('round');
+
+      // this.context.drawImage('../../images/img111.png', 0, 0, canvasw, 500);
+      that.context.draw();
+      console.log(that.context)
+      wx.getSystemInfo({
+        success: function (res) {
+          that.canvasw = res.windowWidth;//设备宽度
+          that.canvash = res.windowHeight
+        }
+      });
+      that.setData({
+        context:that.context
+      })
+    }
+  }
+</script>
+

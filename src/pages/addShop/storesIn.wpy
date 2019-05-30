@@ -1,0 +1,1885 @@
+<style lang="less">
+  .line {
+    height: 10px;
+    background: #F5F5F5;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .oval {
+    width: 1%;
+    float: left;
+    margin-top: 4px;
+    height: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+    border-radius: 2px;
+    background: #87C9F4;
+  }
+
+  .oval1 {
+    width: 3%;
+    float: left;
+    margin-top: 4px;
+    height: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+    border-radius: 2px;
+    background: #87C9F4;
+  }
+
+  .nav {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+
+  .nav-title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    font-family: PingFang-SC-Medium;
+    font-size: 14px !important;
+    letter-spacing: 2px;
+    background: #4DBAF2;
+    color: #ffffff;
+  }
+
+  .nav .back {
+    width: 10px;
+    height: 15px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 12px 15px;
+    color: #ffffff;
+  }
+
+  .nav .back1 {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: #ffffff;
+  }
+
+  .bg-white {
+    background-color: #ffffff;
+  }
+
+  .bg-gray {
+    background-color: #f7f7f7;
+  }
+
+  .overflow {
+    overflow: auto;
+  }
+
+  .hidden {
+    overflow: hidden;
+  }
+
+  .input-class {
+    background: #cccccc;
+  }
+
+</style>
+<template>
+  <view>
+    <view class='nav bg-white' style='height:40px'>
+      <view class='nav-title'>
+        门店入驻
+        <image src='../../components/img/back.png' mode='aspectFit' class='back' bindtap='navBack'></image>
+        <view class='back1' bindtap='formSubmit'>保存</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- <view wx:if="{{isShow}}">
+     <view class="map_container">
+       <van-row>
+         <van-col span="16">
+           <view class="section">
+             <van-cell-group>
+               <van-field
+                 value="{{ value }}"
+                 placeholder="输入关键词"
+                 border="{{ true }}"
+                 bind:change="onChange"
+               />
+             </van-cell-group>
+           </view>
+         </van-col>
+         <van-col span="8">
+           <button bindtap="bindKeyInput">搜索</button>
+         </van-col>
+       </van-row>
+       <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="17" show-location="true"
+            markers="{{markers}}" bindmarkertap="makertap"></map>
+     </view>
+     <view>
+       <button bindtap="bindKey">确定</button>
+     </view>
+   </view>-->
+  <view style="margin-top: 10%;">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <van-cell-group>
+        <!-- <van-radio-group value="{{ radio }}" bind:change="onChange">
+           <van-row>
+             <van-col span="1" style="visibility: hidden">
+              d
+             </van-col>
+             <van-col span="8">
+               <van-radio name="1">合作商家</van-radio>
+             </van-col>
+             <van-col span="8">
+               <van-radio name="2">托管商家</van-radio>
+             </van-col>
+           </van-row>
+         </van-radio-group>-->
+        <view class="line"></view>
+
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">店铺基本资料</text>
+        </view>
+
+        <van-field
+          value="{{ shopname }}"
+          label="店铺名称"
+          clearable
+          placeholder="请输入店铺名称"
+          id="shopname"
+          maxlength='10'
+          type='text'
+          bind:input="inputChange"
+        />
+        <van-field
+          value="{{ phone }}"
+          label="联系电话"
+          id="phone"
+          clearable
+          placeholder="请输入联系电话"
+          type='number'
+          maxlength='11'
+          bind:input="inputChange"
+        />
+
+        <!--<van-area area-list="{{ AreaList }}" />-->
+        <view class="section">
+          <!-- <view class="section__title">省市区选择器</view>-->
+          <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+            <view class="picker" style="padding-top: 3%;padding-bottom: 4%;">
+              <view style="float:left;padding-left: 4%;">店铺区域:</view>
+              <view style="float:left;padding-left: 8%">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
+            </view>
+            <view style="border-bottom: 1px #F4F4F4 solid;margin-top:13px;margin-left:13px;"></view>
+          </picker>
+        </view>
+        <van-field
+          value="{{ address }}"
+          label="店铺地址"
+          id="address"
+          clearable
+          placeholder="请输入店铺地址"
+          type='text'
+          border="{{ true }}"
+          bindfocus="activeFocus"
+        />
+        <view class="line"></view>
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">店主信息</text>
+        </view>
+        <van-field
+          value="{{ shopkeeper  }}"
+          label="联系电话"
+          id="shopkeeper"
+          clearable
+          placeholder="请输入联系电话"
+          type='number'
+          maxlength='11'
+          bind:input="inputChange"
+        />
+        <view style="background: #cccccc;">
+          <van-field
+            value="{{ landlordName }}"
+            label="店主姓名"
+            id="landlordName"
+            clearable
+            disabled="{{isDisabled}}"
+            placeholder="请输入店主姓名"
+            type='text'
+            bind:input="inputChange"
+          />
+        </view>
+        <van-field
+          value="{{ idCard }}"
+          label="身份证号"
+          id="idCard"
+          disabled="{{isDisabled1}}"
+          clearable
+          placeholder="请输入身份证号"
+          type='number'
+          bind:input="inputChange1"
+        />
+
+
+        <view class="line"></view>
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">合约信息</text>
+        </view>
+        <view class="section">
+          <picker style="padding-top: 3%;padding-left: 4%;"
+            mode="date"
+            value="{{date}}"
+            start=""
+            end=""
+            bindchange="bindDateChange">
+            <view class="picker"> 开始时间  <text style="margin-left:7%;">{{date}}</text></view>
+          </picker>
+          <view style="border-bottom: 1px #F4F4F4 solid;margin-top:13px;margin-left:13px;"></view>
+        </view>
+
+        <view class="section">
+          <picker style="padding-top: 3%;padding-left: 4%;"
+                  mode="date"
+                  value="{{dateEnd}}"
+                  start=""
+                  end=""
+                  bindchange="bindDateEndChange">
+            <view class="picker"> 结束时间  <text style="margin-left:7%;">{{dateEnd}}</text></view>
+          </picker>
+          <view style="border-bottom: 1px #F4F4F4 solid;margin-top:13px;margin-left:13px;"></view>
+        </view>
+        <van-field
+          value="{{ sNumber }}"
+          label="合同编号"
+          id="sNumber"
+          clearable
+          placeholder="请输入合同编号"
+          maxlength='5'
+          type='number'
+          bind:input="inputChangeS"
+        />
+
+        <view class="line"></view>
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">业务员账号</text>
+        </view>
+        <van-field
+          value="{{ salesman  }}"
+          id="salesman"
+          label="账号"
+          clearable
+          placeholder="请输入业务员账号"
+          type='number'
+          maxlength='11'
+          bind:input="inputChange"
+        />
+        <view class="line"></view>
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">店铺头像</text>
+          <view class="section__ctn" style="margin-left: 10px;">
+            <view style="float: left;width:25%;">
+              <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                     src="../../components/img/add.png" bindtap="chooseImage(1)"></image>
+            </view>
+            <view style="float: left;width:25%;" wx:if="{{images}}">
+              <image style="width:96%; height: 90px; margin-top: 8px;" mode="scaleToFill" src="{{images}}"></image>
+              <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                     src="../../components/img/close.png" bindtap="removeImages(1)"></image>
+            </view>
+          </view>
+        </view>
+        <view style="clear: both"></view>
+        <view class="line"></view>
+        <view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">店铺环境</text>
+          <view class="section__ctn" style="margin-left: 10px;">
+            <view style="float: left;width:25%;">
+              <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                     src="../../components/img/add.png" bindtap="chooseImage(2)"></image>
+            </view>
+            <view style="float: left;width:25%;" wx:for="{{images1}}" wx:key="*this"
+                  wx:if="{{images1.length>0}}">
+              <image style="width:96%; height: 90px; margin-top: 8px;" mode="scaleToFill" src="{{item}}"></image>
+              <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                     src="../../components/img/close.png" data-idx="{{index}}" bindtap="removeImages(2)"></image>
+            </view>
+          </view>
+        </view>
+        <view style="clear: both"></view>
+        <view class="line"></view>
+        <!--<view class="section__ctn">
+          <view class="oval"></view>
+          <text style="font-weight:bold">店铺证件及资料</text>
+          <view class="section__ctn" style="margin-left: 10px;">
+            <view style="float: left;width:25%;">
+              <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                     src="../components/img/add.png" bindtap="chooseImage(3)"></image>
+            </view>
+            <view style="float: left;width:25%;" wx:for="{{images2}}" wx:key="*this"
+                  wx:if="{{images2.length>0}}">
+              <image style="width:96%; height: 90px; margin-top: 8px;" mode="scaleToFill" src="{{item}}"></image>
+              <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                     src="../components/img/close.png" data-idx="{{index}}" bindtap="removeImages(2)"></image>
+            </view>
+          </view>
+        </view>-->
+        <view class="section__ctn">
+          <van-row>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">手持身份证</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images2.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(3)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images2.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images2}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(3)"></image>
+                </view>
+              </view>
+            </van-col>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">身份证正面</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images3.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(4)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images3.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images3}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(4)"></image>
+                </view>
+              </view>
+            </van-col>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">身份证反面</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images4.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(5)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images4.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images4}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(5)"></image>
+                </view>
+              </view>
+            </van-col>
+          </van-row>
+        </view>
+        <view style="clear: both"></view>
+        <view class="section__ctn">
+          <van-row>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">合照展示</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images5.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(6)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images5.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images5}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(6)"></image>
+                </view>
+              </view>
+            </van-col>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">营业执照</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images6.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(7)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images6.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images6}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(7)"></image>
+                </view>
+              </view>
+            </van-col>
+            <van-col span="8">
+              <view class="oval1"></view>
+              <text style="font-weight:bold">商品安全</text>
+              <view class="section__ctn" style="margin-left: 10px;">
+                <view style="float: left;width:85%;" wx:if="{{images7.length==0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="../../components/img/add.png" bindtap="chooseImage(8)"></image>
+                </view>
+                <view style="float: left;width:85%;" wx:if="{{images7.length>0}}">
+                  <image style="width:96%; height: 90px;margin-top: 8px;" mode="scaleToFill"
+                         src="{{images7}}"></image>
+                  <image style="width:40rpx; height: 40rpx; margin-left: -40rpx;position:absolute" mode="scaleToFill"
+                         src="../../components/img/close.png" bindtap="removeImages(8)"></image>
+                </view>
+              </view>
+            </van-col>
+          </van-row>
+        </view>
+        <view style="clear: both"></view>
+        <view style="text-align: center;font-size: 10px;margin-bottom: 4%;margin-top: 2%;color: #C7C7C7">
+          上传店铺营业执照,店主身份证正反面，提高审核通过率！
+        </view>
+        <!--<view>
+          <button formType="submit" style="border: 0;color: white;background: #FF813D;font-size:14px;width: 96%;text-align: center">保存
+          </button>
+        </view>-->
+      </van-cell-group>
+    </form>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class StoresIn extends wepy.page {
+    config = {
+      navigationBarTitleText: '',
+      usingComponents: {
+        "van-row": "../../components/vant/row/index",
+        "van-col": "../../components/vant/col/index",
+        "van-field": "../../components/vant/field/index",
+        "van-radio": "../../components/vant/radio/index",
+        "van-radio-group": "../../components/vant/radio-group/index",
+        /* "van-area": "../components/vant/area/index",*/
+      }
+    };
+
+    data = {
+      radio: "1",
+      phone: '',
+      shopname: '',
+      shopkeeper: '',
+      landlordName: '',
+      idCard: '',
+      salesman: '',
+      address: '',
+      images: '',
+      images1: [],
+      images2: '',
+      images3: '',
+      images4: '',
+      images5: '',
+      images6: '',
+      images7: '',
+      arr1: '',
+      arr2: [],
+      arr3: '',
+      arr4: '',
+      arr5: '',
+      arr6: '',
+      arr7: '',
+      arr8: '',
+      wxMarkerData: [],
+      latitude: '',
+      longitude: '',
+      value: '',
+      rgcData: {},
+      city: "",
+      isShow: false,
+      successUp: '', //成功个数
+      failUp: '', //失败个数
+      tempFilePaths: '',//总共个数
+      sub: '',
+      navH: '10',
+      isDisabled: false,
+      isDisabled1: false,
+      isSubmit: true,
+      token: "",
+      province_list: [],
+      city_list: [],
+      county_list: [],
+      region: ['广东省', '深圳市', '宝安区'],
+      proid: '9655',
+      cityid: '9683',
+      areaid: '9687',
+      AreaList: {},
+      date: '',
+      dateEnd:'',
+      sNumber:''
+    }
+    methods = {
+      inputChange(e) {
+        if (e.target.id == "shopname") {
+          this.shopname = e.detail;
+          return;
+        } else if (e.target.id == "phone") {
+          this.phone = e.detail;
+          return;
+        } else if (e.target.id == "address") {
+          let _this = this;
+          console.log('开始' + _this.shopkeeper);
+          wx.setStorage({
+            key: "shopkeeper",
+            data: _this.shopkeeper
+          })
+          wx.setStorage({
+            key: "phone",
+            data: _this.phone
+          })
+          wx.setStorage({
+            key: "shopname",
+            data: _this.shopname
+          })
+          wx.setStorage({
+            key: "idCard",
+            data: _this.idCard
+          })
+          wx.setStorage({
+            key: "landlordName",
+            data: _this.landlordName
+          })
+          wx.setStorage({
+            key: "salesman",
+            data: _this.salesman
+          })
+          wx.setStorage({
+            key: "region",
+            data: _this.region
+          })
+          wx.setStorage({
+            key: "images",
+            data: _this.images
+          })
+          wx.setStorage({
+            key: "images1",
+            data: _this.images1
+          })
+          wx.setStorage({
+            key: "images2",
+            data: _this.images2
+          })
+          wx.setStorage({
+            key: "longitude",
+            data: _this.longitude
+          })
+          /* wx.navigateTo({
+             url: '/pages/map?city=' + this.region[1]
+           })*/
+          return;
+        } else if (e.target.id == "shopkeeper") {
+          this.shopkeeper = e.detail;
+          let _this = this;
+          if (this.shopkeeper.length == 11) {
+            wx.request({
+              url: this.$parent.globalData.amURL + 'saler/getDataByPhone',
+              method: 'get',
+              data: {
+                phone: this.shopkeeper,
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded', // 默认值
+                'token': 'Bearer ' + _this.token
+              },
+              success(res) {
+                if (res.data.code == 101) {
+                  console.log(res.data)
+                  _this.isDisabled = res.data.data[0].username == 0 ? false : true;
+                  _this.isDisabled1 = res.data.data[0].idcard == 0 ? false : true;
+                  _this.landlordName = res.data.data[0].username == 0 ? "" : res.data.data[0].username;
+                  _this.idCard = res.data.data[0].idcard == 0 ? "" : res.data.data[0].idcard;
+                  _this.setData({
+                    landlordName: _this.landlordName,
+                    idCard: _this.idCard,
+                    isDisabled1: _this.isDisabled1,
+                    isDisabled: _this.isDisabled
+                  })
+                  wx.showToast({
+                    title: res.data.tip,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                } else if (res.data.code == 102) {
+                  wx.showToast({
+                    title: res.data.tip,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                } else if (res.data.code == 201) {
+                  wx.showToast({
+                    title: res.data.tip,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  wx.reLaunch({
+                    url: '/pages/mine/login'
+                  })
+                }
+              }
+            })
+          }
+          return;
+        } else if (e.target.id == "landlordName") {
+          this.landlordName = e.detail;
+          return;
+        } else if (e.target.id == "idCard") {
+          this.idCard = e.detail;
+          return;
+        } else if (e.target.id == "salesman") {
+          this.salesman = e.detail;
+          return;
+        }
+        ;
+      },
+      onChange(e) {
+        this.radio = e.detail
+      },
+      inputChangeS(e){
+        this.sNumber = e.detail
+        this.setData({
+          sNumber: this.sNumber
+        })
+      },
+      bindDateChange(e) {
+       this.date=e.detail.value
+        this.setData({
+          date: this.date
+        })
+      },
+      bindDateEndChange(e) {
+        this.dateEnd=e.detail.value
+        this.setData({
+          date: this.dateEnd
+        })
+      },
+      bindRegionChange: function (e) {
+        console.log(e)
+        this.region = e.detail.value;
+        let _this = this;
+        var a = this.region[0].substring(0, 2);
+        var b = this.region[1].substring(0, 2);
+        var c = this.region[2].substring(0, 2);
+        for (var i = 0; i < this.province_list.length; i++) {
+          var a1 = (this.province_list[i].region_name).substring(0, 2);
+          if (a == a1) {
+            this.proid = this.province_list[i].id;
+            this.setData({
+              proid: this.proid
+            })
+            wx.request({
+              url: this.$parent.globalData.utURL + 'address/getCity',
+              method: 'get',
+              data: {
+                id: _this.proid
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded', // 默认值
+              },
+              success(res) {
+                if (res.data.code == 101) {
+                  console.log(res.data)
+                  var data1 = res.data.data;
+                  for (var j = 0; j < data1.length; j++) {
+                    var a2 = (data1[j].region_name).substring(0, 2);
+                    if (b == a2) {
+                      _this.cityid = data1[j].id;
+                      _this.setData({
+                        cityid: _this.cityid
+                      })
+
+                      wx.request({
+                        url: _this.$parent.globalData.utURL + 'address/getCounty',
+                        method: 'get',
+                        data: {
+                          id: _this.cityid
+                        },
+                        header: {
+                          'content-type': 'application/x-www-form-urlencoded', // 默认值
+                        },
+                        success(res) {
+                          if (res.data.code == 101) {
+                            console.log(res.data)
+                            var data2 = res.data.data;
+                            for (var k = 0; k < data2.length; k++) {
+                              var a3 = (data2[k].region_name).substring(0, 2);
+                              if (c == a3) {
+                                _this.areaid = data2[k].id;
+                                _this.setData({
+                                  areaid: _this.areaid
+                                })
+                                break;
+                              } else {
+                                if (k == data2.length - 1) {
+                                  if ('其它' == a3) {
+                                    _this.areaid = data2[k].id;
+                                    _this.setData({
+                                      areaid: _this.areaid
+                                    })
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      });
+                      // break;
+                      return;
+                    }
+                  }
+                }
+              }
+            });
+            // break;
+            console.log(_this.proid);
+            console.log(_this.cityid);
+            console.log(_this.areaid);
+            return;
+          }
+        }
+      },
+      uploadDIY(this1, str, filePaths, successUp, failUp, i, length) {
+        var _this = this1;
+        wx.uploadFile({
+          url: _this.$parent.globalData.utURL + 'upload/needType',
+          filePath: filePaths[i],
+          name: 'fileData',
+          formData: {
+            type: "pic"
+          },
+          header: {
+            "Content-Type": "multipart/form-data"
+          },
+          success: (res) => {
+            var data = JSON.parse(res.data);
+            //let _this=this;
+            if (data.code == 101) {
+              successUp++;
+              if (str == 1) {
+                _this.images = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images: _this.images});
+                return;
+              } else if (str == 2) {
+                _this.images1.push(_this.$parent.globalData.imgURL + data.data[0]);
+                _this.setData({images1: _this.images1});
+                console.log(_this.images1);
+              } else if (str == 3) {
+                _this.images2 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images2: _this.images2});
+              } else if (str == 4) {
+                _this.images3 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images3: _this.images3});
+              } else if (str == 5) {
+                _this.images4 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images4: _this.images4});
+              } else if (str == 6) {
+                _this.images5 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images5: _this.images5});
+              } else if (str == 7) {
+                _this.images6 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images6: _this.images6});
+              } else if (str == 8) {
+                _this.images7 = _this.$parent.globalData.imgURL + data.data[0];
+                _this.setData({images7: _this.images7});
+              }
+            } else if (data.code == 102) {
+              wx.showToast({
+                title: res.data.tip,
+                icon: 'none',
+                duration: 2000
+              })
+            }
+          },
+          fail: (res) => {
+            failUp++;
+          },
+          complete: () => {
+            i++;
+            if (i == length) {
+              wx.showToast({
+                title: '总共' + successUp + '张上传成功,' + failUp + '张上传失败！',
+                icon: 'none',
+                duration: 2000
+              })
+            }
+            else {  //递归调用uploadDIY函数
+              // let _this=this;
+              _this.methods.uploadDIY(this1, str, filePaths, successUp, failUp, i, length);
+            }
+          },
+        });
+      },
+      chooseImage(str) {
+        let _this = this;
+        if (str == 2) {
+          var imgN = 5;
+        } else {
+          var imgN = 1;
+        }
+        wx.chooseImage({
+          count: imgN,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album', 'camera'],
+          success: (res) => {
+            if (str == 1) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '头像只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 2) {
+              if (res.tempFiles.length > 5 || (_this.images1.length + res.tempFiles.length) > 5) {
+                wx.showToast({
+                  title: '图片不能超过6张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 3) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '手持身份证只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+              /* if (res.tempFiles.length > 5 || (_this.images2.length + res.tempFiles.length) > 5) {
+                 wx.showToast({
+                   title: '图片不能超过6张',
+                   icon: 'none',
+                   duration: 2000
+                 })
+                 return;
+               }*/
+            } else if (str == 4) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '身份证正面只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 5) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '身份证反面只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 6) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '合照展示只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 7) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '营业执照只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            } else if (str == 8) {
+              if (res.tempFiles.length != 1) {
+                wx.showToast({
+                  title: '商品安全只能上传一张',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            }
+            for (var i = 0; i < res.tempFiles.length; i++) {
+              var tempFilesSize = res.tempFiles[i].size;  //获取图片的大小，单位B
+              if (tempFilesSize <= 2000000) {   //图片小于或者等于2M时 可以执行获取图片 300000000 / 1024
+                var tempFilePaths = res.tempFilePaths;  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+              } else {
+                wx.showToast({
+                  title: '大小不能超过2M',
+                  icon: 'none',
+                  duration: 2000
+                })
+                return;
+              }
+            }
+            _this.successUp = 0; //成功个数
+            _this.failUp = 0; //失败个数
+            _this.length = tempFilePaths.length; //总共个数
+            _this.sub = 0; //第几个
+            console.log('ss');
+            _this.methods.uploadDIY(_this, str, tempFilePaths, _this.successUp, _this.failUp, _this.sub, _this.length);
+          },
+        });
+      },
+      /*  chooseImage(str) {
+           let _this = this;
+           wx.chooseImage({
+             sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+             success: function (res) {
+                if (str == 1) {
+                  if(res.tempFiles.length!=1){
+                    wx.showToast({
+                      title: '头像只能上传一张',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                    return;
+                  }
+                } else {
+                  if(res.tempFiles.length>5){
+                    wx.showToast({
+                      title: '图片不能超过6张',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                    return;
+                  }
+                }
+               for (var i = 0;i < res.tempFiles.length;i++) {
+                 var tempFilesSize = res.tempFiles[i].size;  //获取图片的大小，单位B
+                 if (tempFilesSize <= 2000000) {   //图片小于或者等于2M时 可以执行获取图片 300000000 / 1024
+                   var tempFilePaths = res.tempFilePaths;  // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                 } else {
+                   wx.showToast({
+                     title: '大小不能超过2M',
+                     icon: 'none',
+                     duration: 2000
+                   })
+                   return;
+                 }
+               }
+               //启动上传等待中...
+               wx.showToast({
+                 title: '正在上传...',
+                 icon: 'loading',
+                 mask: true,
+                 duration: 1000
+               })
+               for (var i = 0; i < tempFilePaths.length; i++) {
+                 wx.uploadFile({
+                   url: _this.$parent.globalData.utURL + 'upload/needType',
+                   filePath: tempFilePaths[i],
+                   name: 'uploadFile',
+                   formData: {
+                     type: "pic"
+                   },
+                   header: {
+                     "Content-Type": "multipart/form-data"
+                   },
+                   success: function (res) {
+                     console.log(i);
+                     var data = JSON.parse(res.data);
+                     if (data.code == 101) {
+                       if (str == 1) {
+                         _this.images = _this.$parent.globalData.imgURL + data.data[0];
+                         _this.setData({images: _this.images});
+                         return;
+                       } else if (str == 2) {
+                         _this.images1.push(_this.$parent.globalData.imgURL + data.data[0]);
+                         _this.setData({images1: _this.images1});
+                       } else if (str == 3) {
+                         _this.images2.push(_this.$parent.globalData.imgURL + data.data[0]);
+                         _this.setData({images2: _this.images2});
+                       }
+                     } else if (data.code == 102) {
+                       wx.showToast({
+                         title: res.data.tip,
+                         icon: 'none',
+                         duration: 2000
+                       })
+                     }
+                   },
+                   fail: function (res) {
+                     wx.hideToast();
+                     wx.showToast({
+                       title: '上传图片失败',
+                       icon: 'none',
+                       duration: 2000
+                     })
+                   }
+                 });
+               }
+             }
+           });
+         },*/
+      /* removeImage() {
+         this.images = "";
+       },*/
+      removeImages(str, e) {
+        const idx = e.target.dataset.idx;
+        if (str == 1) {
+          this.images = "";
+        } else if (str == 2) {
+          this.images1.splice(idx, 1)
+        } else if (str == 3) {
+          this.images2 = ""
+        } else if (str == 4) {
+          this.images3 = ""
+        } else if (str == 5) {
+          this.images4 = ""
+        } else if (str == 6) {
+          this.images5 = ""
+        } else if (str == 7) {
+          this.images6 = ""
+        } else if (str == 8) {
+          this.images7 = ""
+        }
+      },
+      removeStr() {
+        var that = this;
+        wx.removeStorage({//获取本地缓存
+          key: "sNumber",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "date",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "dateEnd",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "isDisabled",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "isDisabled1",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "value",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "latitude",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "longitude",
+          success: function (res) {
+          },
+        })
+
+
+        wx.removeStorage({//获取本地缓存
+          key: "phone",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "shopname",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "shopkeeper",
+          success: function (res) {
+          },
+        })
+
+        wx.removeStorage({//获取本地缓存
+          key: "landlordName",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "idCard",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "salesman",
+          success: function (res) {
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "region",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images1",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images2",
+          success: function (res) {
+
+          },
+        })
+        wx.removeStorage({//获取本地缓存
+          key: "images",
+          success: function (res) {
+
+          },
+        })
+      },
+      formSubmit: function () {
+       // this.methods.activeFocus('1');
+        let _this=this;
+        wx.setStorage({
+          key: "sNumber",
+          data: _this.sNumber
+        })
+        wx.setStorage({
+          key: "dateEnd",
+          data: _this.dateEnd
+        })
+        wx.setStorage({
+          key: "date",
+          data: _this.date
+        })
+        wx.setStorage({
+          key: "shopkeeper",
+          data: _this.shopkeeper
+        })
+        wx.setStorage({
+          key: "shopkeeper",
+          data: _this.shopkeeper
+        })
+        wx.setStorage({
+          key: "isDisabled",
+          data: _this.isDisabled
+        })
+        wx.setStorage({
+          key: "isDisabled1",
+          data: _this.isDisabled1
+        })
+        wx.setStorage({
+          key: "phone",
+          data: _this.phone
+        })
+        wx.setStorage({
+          key: "shopname",
+          data: _this.shopname
+        })
+        wx.setStorage({
+          key: "idCard",
+          data: _this.idCard
+        })
+        wx.setStorage({
+          key: "landlordName",
+          data: _this.landlordName
+        })
+        wx.setStorage({
+          key: "salesman",
+          data: _this.salesman
+        })
+        wx.setStorage({
+          key: "region",
+          data: _this.region
+        })
+        wx.setStorage({
+          key: "images",
+          data: _this.images
+        })
+        wx.setStorage({
+          key: "images1",
+          data: _this.images1
+        })
+        wx.setStorage({
+          key: "images2",
+          data: _this.images2
+        })
+        wx.setStorage({
+          key: "longitude",
+          data: _this.longitude
+        })
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '/pages/addShop/contract'
+          })
+        }, 1000)
+         /*this.arr1 = "";
+         this.arr2 = [];
+         this.arr3 = "";
+         this.arr4 = "";
+         this.arr5 = "";
+         this.arr6 = "";
+         this.arr7 = "";
+         this.arr8 = "";
+         if (this.phone.length == 0 || this.shopname.length == 0 || this.shopkeeper.length == 0 ||
+           this.landlordName.length == 0 || this.idCard.length == 0 || this.salesman.length == 0 ||
+           this.address.length == 0 || this.images.length == 0 || this.images1.length == 0 || this.images2.length == 0
+         ||this.images3.length == 0||this.images4.length == 0||this.images5.length == 0||this.images6.length == 0||this.images7.length == 0||
+         this.date.length == 0||this.dateEnd.length == 0||this.sNumber.length == 0) {
+           wx.showToast({
+             title: '请检查是否全部填写和上传！',
+             icon: 'none',
+             duration: 2000
+           })
+           return;
+         }
+         if(this.phone.length!=11){
+           wx.showToast({
+             title: '店铺联系号码有误',
+             icon: 'none',
+             duration: 2000
+           })
+           return;
+         }
+         if(this.shopkeeper.length!=11){
+           wx.showToast({
+             title: '店主联系号码有误',
+             icon: 'none',
+             duration: 2000
+           })
+           return;
+         }
+         var patt1 = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+         if (!(patt1.test(this.idCard))) {
+           wx.showToast({
+             title: '身份证号码有误',
+             icon: 'none',
+             duration: 2000
+           })
+           return;
+         }
+        if(this.dateEnd<=this.date){
+          wx.showToast({
+            title: '结束时间要大于开始时间',
+            icon: 'none',
+            duration: 2000
+          })
+          return;
+        }
+
+         this.arr1 = this.images.substr(this.images.indexOf("pic"));
+         for (var i = 0; i < this.images1.length; i++) {
+           this.arr2.push(this.images1[i].substr(this.images1[i].indexOf("pic")));
+         }
+         this.arr3=this.images2.substr(this.images2.indexOf("pic"));
+         this.arr4=this.images3.substr(this.images3.indexOf("pic"));
+         this.arr5=this.images4.substr(this.images4.indexOf("pic"));
+         this.arr6=this.images5.substr(this.images5.indexOf("pic"));
+         this.arr7=this.images6.substr(this.images6.indexOf("pic"));
+         this.arr8=this.images7.substr(this.images7.indexOf("pic"));
+         var license=this.arr3+','+this.arr4+','+this.arr5+','+this.arr6+','+this.arr7+','+this.arr8;
+         let _this = this;
+         console.log(_this.token);
+         if (_this.isSubmit) {
+           _this.isSubmit = false;
+           wx.request({
+             url: this.$parent.globalData.amURL + 'saler/addShop',
+             method: 'post',
+             data: {
+               cooperat: 1,
+               shopname: this.shopname,
+               phone: this.phone,
+               proid: this.proid,
+               cityid: this.cityid,
+               areaid: this.areaid,
+               adr_detail: this.address,
+               lon: this.longitude,
+               lat: this.latitude,
+               username: this.landlordName,
+               telphone: this.shopkeeper,
+               idcard: this.idCard,
+               headpic: this.arr1,
+               environment: this.arr2,
+               license: license,
+               operator: this.salesman
+             },
+             header: {
+               'content-type': 'application/x-www-form-urlencoded', // 默认值
+               'token': 'Bearer ' + _this.token
+             },
+             success(res) {
+               if (res.data.code == 101) {
+                 console.log(res.data)
+                 /!*_this.shopname = "";
+                 _this.phone = "";
+                 _this.address = "";
+                 _this.landlordName = "";
+                 _this.shopkeeper = "";
+                 _this.idCard = "";
+                 _this.images = "";
+                 _this.images1 = [];
+                 _this.images2 = [];
+                 _this.salesman = "";
+                 _this.region = ['广东省', '深圳市', '宝安区'];
+                 _this.proid = '9655';
+                 _this.cityid = '9683';
+                 _this.areaid = '9687';
+                 _this.longitude = '';
+                 _this.latitude = '';
+                 _this.setData({
+                   shopname: _this.shopname,
+                   phone: _this.phone,
+                   region: _this.region,
+                   proid: _this.proid,
+                   cityid: _this.cityid,
+                   areaid: _this.areaid,
+                   longitude: _this.longitude,
+                   latitude: _this.latitude,
+                   address: _this.address,
+                   landlordName: _this.landlordName,
+                   shopkeeper: _this.shopkeeper,
+                   idCard: _this.idCard,
+                   images: _this.images,
+                   images1: _this.images1,
+                   images2: _this.images2,
+                   salesman: _this.salesman
+                 })*!/
+                // _this.methods.removeStr();
+                _this.methods.activeFocus();
+                 wx.showToast({
+                   title: res.data.tip,
+                   icon: 'none',
+                   duration: 3000
+                 })
+                 setTimeout(function () {
+                   wx.reLaunch({
+                     url: '/pages/index'
+                   })
+                 },1000)
+                 _this.isSubmit = true;
+               } else if (res.data.code == 102) {
+                 wx.showToast({
+                   title: res.data.tip,
+                   icon: 'none',
+                   duration: 2000
+                 })
+                 _this.isSubmit = true;
+               } else if (res.data.code == 201) {
+                 wx.showToast({
+                   title: res.data.tip,
+                   icon: 'none',
+                   duration: 2000
+                 })
+                 wx.reLaunch({
+                   url: '/pages/mine/login'
+                 })
+               }
+             }
+           })
+         }*/
+      },
+      formReset: function () {
+        console.log('form发生了reset事件')
+      },
+      inputFocus() {
+        console.log('ddd');
+        this.isShow = 'true';
+        this.setData({
+          isShow: this.isShow
+        });
+        var that = this;
+        /* that.city = op.city;
+         that.setData({
+           city:that.city
+         })*/
+        //console.log(that.city);
+        var bmap = require('../../components/js/bmap-wx.min.js');
+        // var wxMarkerData = [];
+        // 新建百度地图对象
+        setTimeout(function () {
+          var BMap = new bmap.BMapWX({
+            ak: 'DRoaTub4Fo7EFqMrGoKyv66tyAUDsjZT'
+          });
+          var fail = function (data) {
+            console.log(data)
+          };
+          var success = function (data) {
+            console.log(data.wxMarkerData);
+            that.wxMarkerData = data.wxMarkerData;
+            that.setData({
+              markers: that.wxMarkerData
+            });
+            that.setData({
+              latitude: that.wxMarkerData[0].latitude
+            });
+            that.setData({
+              longitude: that.wxMarkerData[0].longitude
+            });
+          }
+          // 发起regeocoding检索请求
+          BMap.regeocoding({
+            fail: fail,
+            success: success,
+            iconPath: '../../components/img/marker_red.png',
+            iconTapPath: '../../components/img/marker_red.png'
+          });
+        }, 300)
+      },
+      onChange(e) {
+        this.value = e.detail;
+      },
+      bindKey() {
+        console.log("点击")
+        this.isShow = false;
+        this.address = this.value;
+        this.setData({
+          isShow: this.isShow,
+          address: this.address
+        });
+      },
+      bindKeyInput() {
+        let that = this;
+        var bmap = require('../../components/js/bmap-wx.min.js');
+        let BMap = new bmap.BMapWX({
+          ak: 'DRoaTub4Fo7EFqMrGoKyv66tyAUDsjZT'
+        });
+        let fail = function () {
+        };
+        let success = function (data) {
+          /* console.log(data.wxMarkerData);
+           that.wxMarkerData = data[0];
+           that.setData({
+             markers: that.wxMarkerData
+           });*/
+          that.wxMarkerData = data.result[0];
+          console.log(data.result[0].location)
+          var latitudet = data.result[0].location.lat;
+          var longitude = data.result[0].location.lng;
+          var aa = latitudet + ',' + longitude;
+          let fail1 = function () {
+          };
+          let success1 = function (data) {
+            that.wxMarkerData = data.wxMarkerData;
+            that.setData({
+              markers: that.wxMarkerData
+            });
+          };
+          that.setData({
+            latitude: data.result[0].location.lat
+          });
+          that.setData({
+            longitude: data.result[0].location.lng
+          });
+          BMap.regeocoding({
+            location: aa,
+            fail: fail1,
+            success: success1,
+            iconPath: '../components/img/marker_red.png',
+            iconTapPath: '../components/img/marker_red.png'
+          });
+        }
+        // 发起suggestion检索请求 suggestion regeocoding search
+        BMap.suggestion({
+          query: this.value,
+          region: this.region[1],
+          city_limit: true,
+          fail: fail,
+          success: success,
+          iconPath: '../components/img/marker_red.png',
+          iconTapPath: '../components/img/marker_red.png'
+        });
+      },
+      activeFocus(str) {
+        let _this = this;
+       // if(!str){
+          wx.navigateTo({
+            url: '/pages/addShop/map?city=' + this.region[1]
+          })
+       // }
+        console.log('4')
+        wx.setStorage({
+          key: "sNumber",
+          data: _this.sNumber
+        })
+        wx.setStorage({
+          key: "dateEnd",
+          data: _this.dateEnd
+        })
+        wx.setStorage({
+          key: "date",
+          data: _this.date
+        })
+        wx.setStorage({
+          key: "shopkeeper",
+          data: _this.shopkeeper
+        })
+        wx.setStorage({
+          key: "shopkeeper",
+          data: _this.shopkeeper
+        })
+        wx.setStorage({
+          key: "isDisabled",
+          data: _this.isDisabled
+        })
+        wx.setStorage({
+          key: "isDisabled1",
+          data: _this.isDisabled1
+        })
+        wx.setStorage({
+          key: "phone",
+          data: _this.phone
+        })
+        wx.setStorage({
+          key: "shopname",
+          data: _this.shopname
+        })
+        wx.setStorage({
+          key: "idCard",
+          data: _this.idCard
+        })
+        wx.setStorage({
+          key: "landlordName",
+          data: _this.landlordName
+        })
+        wx.setStorage({
+          key: "salesman",
+          data: _this.salesman
+        })
+        wx.setStorage({
+          key: "region",
+          data: _this.region
+        })
+        wx.setStorage({
+          key: "images",
+          data: _this.images
+        })
+        wx.setStorage({
+          key: "images1",
+          data: _this.images1
+        })
+        wx.setStorage({
+          key: "images2",
+          data: _this.images2
+        })
+        wx.setStorage({
+          key: "longitude",
+          data: _this.longitude
+        })
+      },
+      navBack() {
+        wx.reLaunch({
+          url: '/pages/index'
+        })
+      },
+    }
+
+    onLoad(op) {
+      var that = this;
+      /*that.address = op.value;
+      that.setData({
+        address: that.address
+      })*/
+      console.log(that.address);
+      wx.getStorage({//获取本地缓存
+        key: "sNumber",
+        success: function (res) {
+          console.log(res.data);
+          that.sNumber = res.data;
+          that.setData({
+            sNumber: that.sNumber
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "dateEnd",
+        success: function (res) {
+          console.log(res.data);
+          that.dateEnd = res.data;
+          that.setData({
+            dateEnd: that.dateEnd
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "date",
+        success: function (res) {
+          console.log(res.data);
+          that.date = res.data;
+          that.setData({
+            date: that.date
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "token",
+        success: function (res) {
+          console.log(res.data);
+          that.token = res.data;
+          that.setData({
+            token: that.token
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "value",
+        success: function (res) {
+          console.log(res.data);
+          that.address = res.data;
+          that.setData({
+            address: that.address
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "latitude",
+        success: function (res) {
+          console.log(res.data);
+          that.latitude = res.data;
+          that.setData({
+            latitude: that.latitude
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "longitude",
+        success: function (res) {
+          console.log(res.data);
+          that.longitude = res.data;
+          that.setData({
+            longitude: that.longitude
+          });
+        },
+      })
+
+      wx.getStorage({//获取本地缓存
+        key: "phone",
+        success: function (res) {
+          console.log(res.data);
+          that.phone = res.data;
+          that.setData({
+            phone: that.phone
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "shopname",
+        success: function (res) {
+          console.log(res.data);
+          that.shopname = res.data;
+          that.setData({
+            shopname: that.shopname
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "shopkeeper",
+        success: function (res) {
+          console.log(res.data);
+          that.shopkeeper = res.data;
+          console.log('点' + that.shopkeeper)
+          that.setData({
+            shopkeeper: that.shopkeeper
+          });
+        },
+      })
+
+      wx.getStorage({//获取本地缓存
+        key: "landlordName",
+        success: function (res) {
+          console.log(res.data);
+          that.landlordName = res.data;
+          that.setData({
+            landlordName: that.landlordName
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "idCard",
+        success: function (res) {
+          console.log(res.data);
+          that.idCard = res.data;
+          that.setData({
+            idCard: that.idCard
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "salesman",
+        success: function (res) {
+          console.log(res.data);
+          that.salesman = res.data;
+          that.setData({
+            salesman: that.salesman
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "region",
+        success: function (res) {
+          console.log(res.data);
+          that.region = res.data;
+          that.setData({
+            region: that.region
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "images1",
+        success: function (res) {
+          console.log(res.data);
+          that.images1 = res.data;
+          that.setData({
+            images1: that.images1
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "isDisabled",
+        success: function (res) {
+          console.log(res.data);
+          that.isDisabled = res.data;
+          that.setData({
+            isDisabled: that.isDisabled
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "isDisabled1",
+        success: function (res) {
+          console.log(res.data);
+          that.isDisabled1 = res.data;
+          that.setData({
+            isDisabled1: that.isDisabled1
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "images2",
+        success: function (res) {
+          console.log(res.data);
+          that.images2 = res.data;
+          that.setData({
+            images2: that.images2
+          });
+        },
+      })
+      wx.getStorage({//获取本地缓存
+        key: "images",
+        success: function (res) {
+          console.log(res.data);
+          that.images = res.data;
+          that.setData({
+            images: that.images
+          });
+        },
+      })
+
+
+      //省市区
+      /*wx.request({
+        url: this.$parent.globalData.utURL + 'address/getAll',
+        method: 'get',
+        data: {},
+        header: {
+          'content-type': 'application/x-www-form-urlencoded', // 默认值
+        },
+        success(res) {
+          if (res.data.code == 101) {
+            console.log(res.data);
+            var data = res.data.data;
+            for (var i = 0; i < data.length; i++) {
+              that.province_list[data[i].id] = data[i].name;
+              for (var j = 0; j < data[i].shi.length; j++) {
+                that.city_list[data[i].shi[j].id] = data[i].shi[j].name;
+                for (var k = 0; k < data[i].shi[j].xian.length; k++) {
+                  //that.county_list[data[i].shi[j].xian[k].id]=data[i].shi[j].xian[k].name;
+                  that.county_list.push({'id': data[i].shi[j].xian[k].id, 'name': data[i].shi[j].xian[k].name});
+                }
+              }
+            }
+           /!* console.log(that.province_list)
+            console.log(that.city_list)
+            console.log(that.county_list)
+            that.AreaList['province_list'] = that.province_list;
+            that.AreaList['city_list'] = that.city_list;
+            that.AreaList['county_list'] = that.county_list;
+            that.setData({
+              AreaList: that.AreaList
+            })*!/
+            console.log(that.county_list);
+
+          }
+        }
+      });*/
+      /* wx.request({
+         url: this.$parent.globalData.utURL + 'address/getCounty',
+         method: 'get',
+         data: {
+           id: '7461'
+         },
+         header: {
+           'content-type': 'application/x-www-form-urlencoded', // 默认值
+         },
+         success(res) {
+           if (res.data.code == 101) {
+             console.log(res.data)
+           }
+         }
+       });
+       wx.request({
+         url: this.$parent.globalData.utURL + 'address/getCity',
+         method: 'get',
+         data: {
+           id: '7460'
+
+         },
+         header: {
+           'content-type': 'application/x-www-form-urlencoded', // 默认值
+         },
+         success(res) {
+           if (res.data.code == 101) {
+             console.log(res.data)
+           }
+         }
+       });*/
+      wx.request({
+        url: this.$parent.globalData.utURL + 'address/getPro',
+        method: 'get',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded', // 默认值
+        },
+        success(res) {
+          if (res.data.code == 101) {
+            console.log(res.data)
+            that.province_list = res.data.data
+            that.setData({
+              province_list: that.province_list
+            })
+            // this.province_list=res.data;
+          }
+        }
+      });
+    }
+
+  }
+</script>
+
